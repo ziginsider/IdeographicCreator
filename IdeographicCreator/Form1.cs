@@ -527,7 +527,8 @@ namespace IdeographicCreator
 
                     treeViewCreator.Nodes.Clear();
                     DrawAllTree();
-                    root.Expand();
+                    //root.Expand();
+                    root.ExpandAll();
 
                     treeViewCreator.SelectedNode = root;
 
