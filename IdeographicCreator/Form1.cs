@@ -529,8 +529,8 @@ namespace IdeographicCreator
 
                         if(indexNode >= 1)
                         {
-                            treeViewCreator.Nodes[0].Nodes[indexNode].EnsureVisible();
-                            treeViewCreator.Nodes[0].Nodes[indexNode].Expand();
+                            treeViewCreator.Nodes[0].Nodes[indexNode-1].EnsureVisible();
+                            treeViewCreator.Nodes[0].Nodes[indexNode-1].Expand();
                         }
 
                         SelectNode = root;
