@@ -387,6 +387,7 @@
             this.dataGridViewExpressionsWork.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridViewExpressionsWork.Size = new System.Drawing.Size(976, 434);
             this.dataGridViewExpressionsWork.TabIndex = 1;
+            this.dataGridViewExpressionsWork.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExpressionsWork_CellClick);
             this.dataGridViewExpressionsWork.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExpressionsWork_CellContentDoubleClick);
             this.dataGridViewExpressionsWork.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewExpressionsWork_CellMouseMove);
             this.dataGridViewExpressionsWork.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExpressionsWork_CellMouseEnter);

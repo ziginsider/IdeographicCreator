@@ -154,6 +154,7 @@ namespace IdeographicCreator
         private void treeViewCreator_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             int index = SelectNode.Parent.Index;
+            string idNodeParent = SelectNode.Parent.Name;
 
             using (FormSetTopic formSetTopic = new FormSetTopic())
             {
@@ -169,13 +170,15 @@ namespace IdeographicCreator
             toolStripStatusLabel2.Text = "";
             SelectNode.Text = "";
 
-            //MessageBox.Show(index.ToString());
-            foreach (TreeNode tnn in treeViewCreator.Nodes)
-            {
-                tnn.Nodes[index].EnsureVisible();
-                tnn.Nodes[index].Expand();
-            }
+            ////MessageBox.Show(index.ToString());
+            //foreach (TreeNode tnn in treeViewCreator.Nodes)
+            //{
+            //    tnn.Nodes[index].EnsureVisible();
+            //    tnn.Nodes[index].Expand();
+            //}
 
+            //родительский узел делаем текущим
+            SelectedNodeRecursive(treeViewCreator.Nodes[0], idNodeParent);
 
             //ShowAllExp();
 
@@ -481,7 +484,7 @@ namespace IdeographicCreator
                 AddNode(id.ToString(), nodeValue);
 
                 toolStripTextBoxSetSubtopic.Text = "";
-                toolStripStatusLabel2.Text = "";
+                //toolStripStatusLabel2.Text = "";
             }
             else
             {
@@ -517,39 +520,32 @@ namespace IdeographicCreator
                     ost.UpdateParentIdListExpressionsWithParentId(Properties.Settings.Default.PathFile, SelectNode.Name, SelectNode.Parent.Name);
                     ost.DeleteSingleTopic(Properties.Settings.Default.PathFile, SelectNode.Name);
 
-                    int index = SelectNode.Parent.Index;
+                    //int index = SelectNode.Parent.Index;
                     string idNodeParent = SelectNode.Parent.Name;
-                    TreeNode newSelectNode = SelectNode.Parent;
-
-                    //SelectNode.Remove();
-
-                    //SelectNode.
+                    //TreeNode newSelectNode = SelectNode.Parent;
+                    int indexNode = SelectNode.Index;
+                    //int levelNode = SelectNode.Level;
 
                     treeViewCreator.Nodes.Clear();
                     DrawAllTree();
-                    //root.Expand();
-                    root.ExpandAll();
+                    root.Expand();
 
                     treeViewCreator.SelectedNode = root;
-
-                    //MessageBox.Show(SelectNode.Text);
-                    //SelectNode.Parent.EnsureVisible();
-
-                    //toolStripStatusLabel2.Text = "";
-                    //SelectNode.Text = "";
-
-                    //MessageBox.Show(idNodeParent);
-                    
 
                     if (idNodeParent == "0")
                     {
 
                         treeViewCreator.TopNode.BackColor = Color.Yellow;
-                        treeViewCreator.TopNode.ForeColor = Color.Black;
-                        //treeViewCreator.Nodes[0].Nodes[index].EnsureVisible();
-                        //treeViewCreator.Nodes[0].Nodes[index].Expand();
+                        treeViewCreator.TopNode.ForeColor = Color.Black;                   
 
-                        SelectNode = newSelectNode;
+                        if(indexNode >= 1)
+                        {
+                            treeViewCreator.Nodes[0].Nodes[indexNode].EnsureVisible();
+                            treeViewCreator.Nodes[0].Nodes[indexNode].Expand();
+                        }
+
+                        SelectNode = root;
+                        //SelectNode = newSelectNode;
                         //выводим название выбранной темы в строку состояния
                         toolStripStatusLabel2.Text = SelectNode.Text;
                         toolStripStatusLabel2.ForeColor = Color.DarkGreen;
@@ -563,23 +559,8 @@ namespace IdeographicCreator
                     }
                     else
                     {
-                        
-                        foreach (TreeNode tnn in treeViewCreator.Nodes)
-                        {
-                            tnn.Nodes[index].EnsureVisible();
-                            tnn.Nodes[index].Expand();
-                            tnn.Nodes[index].BackColor = Color.Yellow;
-                            tnn.Nodes[index].ForeColor = Color.Black;
-
-                        }
-
-                        SelectNode = newSelectNode;
-                        //MessageBox.Show(SelectNode.Parent.Text);
-
-                        ////показываем тему
-                        //SelectNode.ExpandAll();
-                        //treeViewCreator.Nodes[0].NextVisibleNode.EnsureVisible();
-                        //treeViewCreator.Nodes[index].EnsureVisible();
+                        //родительский узел делаем текущим
+                        SelectedNodeRecursive(treeViewCreator.Nodes[0], idNodeParent);
 
                         //выводим название выбранной темы в строку состояния
                         toolStripStatusLabel2.Text = SelectNode.Text;
@@ -593,9 +574,6 @@ namespace IdeographicCreator
 
                         labelCountExp.Text = dataGridViewExpressionsWork.RowCount.ToString();
 
-                        ////подсвечиваем тему жёлтеньким
-                        //SelectNode.BackColor = Color.Yellow;
-                        //SelectNode.ForeColor = Color.Black;
                     }
        
                 }
@@ -606,6 +584,22 @@ namespace IdeographicCreator
             }
         }
 
+        private void SelectedNodeRecursive(TreeNode treeNode, string nodeName)
+        {
+            foreach (TreeNode tn in treeNode.Nodes)
+            {
+                if (tn.Name == nodeName)
+                {
+                    tn.EnsureVisible();
+                    tn.ExpandAll();
+                    tn.BackColor = Color.Yellow;
+                    tn.ForeColor = Color.Black;
+                    SelectNode = tn;
+                    return;
+                }
+                SelectedNodeRecursive(tn, nodeName);
+            }
+        }
 
         private void RemoveSelectedNodeRecursive(TreeNode treeNode)
         {
@@ -1684,6 +1678,15 @@ namespace IdeographicCreator
                 {
                     MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void dataGridViewExpressionsWork_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 3)
+            {
+                MessageBox.Show("Ya-aaaa-choooo! IdTopic = " + dataGridViewExpressionsWork.Rows[e.RowIndex].Cells[2].Value.ToString()
+                    + " TopicName = " + dataGridViewExpressionsWork.Rows[e.RowIndex].Cells[3].Value.ToString(), "Info Clic");
             }
         }
     }
