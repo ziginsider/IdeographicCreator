@@ -167,21 +167,10 @@ namespace IdeographicCreator
             DrawAllTree();
             root.Expand();
 
-            toolStripStatusLabel2.Text = "";
-            SelectNode.Text = "";
-
-            ////MessageBox.Show(index.ToString());
-            //foreach (TreeNode tnn in treeViewCreator.Nodes)
-            //{
-            //    tnn.Nodes[index].EnsureVisible();
-            //    tnn.Nodes[index].Expand();
-            //}
-
             //родительский узел делаем текущим
             SelectedNodeRecursive(treeViewCreator.Nodes[0], idNodeParent);
 
             //ShowAllExp();
-
 
             toolStripStatusLabel2.Text = SelectNode.Text;
             toolStripStatusLabel2.ForeColor = Color.DarkGreen;
