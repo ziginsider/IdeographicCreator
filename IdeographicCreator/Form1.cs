@@ -692,7 +692,8 @@ namespace IdeographicCreator
         {
             //int rowIndex = 0;
             DataTable dt = new DataTable("From DBDD");
-            string selectString = "Text Like '%" + textBoxSearch.Text.Trim() + "%'";
+            //string selectString = "Text Like '%" + textBoxSearch.Text.Trim() + "%'";
+            string selectString = "Text Like '%" + textBoxSearch.Text + "%'";
             try
             {
                 DataRowCollection allRows = ((DataTable)dataGridViewExpressionsWork.DataSource).Rows;
@@ -736,7 +737,8 @@ namespace IdeographicCreator
         {
             //int rowIndex = 0;
             DataTable dt = new DataTable("From DBDD");
-            string selectString = "Text Like '%" + textBoxSearch.Text.Trim() + "%'";
+            //string selectString = "Text Like '%" + textBoxSearch.Text.Trim() + "%'";
+            string selectString = "Text Like '%" + textBoxSearch.Text + "%'";
             try
             {
                 DataRowCollection allRows = ((DataTable)dataGridViewExpressionsWork.DataSource).Rows;
