@@ -34,6 +34,9 @@ namespace IdeographicCreator
         //содержит пару ключ-значение. Ключ: идентификатор темы, значение: индекс текущего выражения в теме
         Dictionary<string, int> dictCurrentExp = new Dictionary<string, int>();
 
+        private bool keyTimer = true;
+        private bool flag = false;
+
         //private Point screenOffset;
         public FormMainCreator()
         {
@@ -69,9 +72,6 @@ namespace IdeographicCreator
             {
                 string dbName = Properties.Settings.Default.PathFile;
                 var dbPath = Path.Combine(Application.StartupPath, dbName);
-                //System.IO.FileStream fs = (System.IO.FileStream)saveFileDialogMain.OpenFile();
-                //MessageBox.Show(dbPath, "имя источника");
-                //MessageBox.Show(name, "имя файла назначения");
                 File.Delete(dbPath);
                 File.Copy(Properties.Settings.Default.PathFileOpen, dbPath);
 
@@ -83,7 +83,6 @@ namespace IdeographicCreator
                 this.Text = "Ideographic Creator v1.5.8  File open: " + Properties.Settings.Default.PathFileOpen;
             }
 
-            //FontCount = 7.8F;
             DrawAllTree();
             root.Expand();
 
@@ -95,12 +94,10 @@ namespace IdeographicCreator
             dataGridViewExpressionsWork.DataSource = dt;
 
             //виден ли заголовок
-            //
-
             dataGridViewExpressionsWork.Columns[0].Visible = false;
             dataGridViewExpressionsWork.Columns[2].Visible =false;
             dataGridViewExpressionsWork.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            //dataGridViewExpressionsWork.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+
             //чётные
             dataGridViewExpressionsWork.RowsDefaultCellStyle.BackColor = Color.White;
             //нечётные
@@ -124,8 +121,7 @@ namespace IdeographicCreator
             CallRecursiveSetTag(treeViewCreator, 0);
 
 
-            //MessageBox.Show(treeViewCreator.Nodes[0].Text, treeViewCreator.Nodes[0].Tag.ToString());
-            //MessageBox.Show(dictCurrentExp[treeViewCreator.Nodes[0].Name].ToString());
+            panelKeyboard.Visible = false;
 
 
 
@@ -153,19 +149,31 @@ namespace IdeographicCreator
 
         private void treeViewCreator_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            int index = SelectNode.Parent.Index;
-            string idNodeParent = SelectNode.Parent.Name;
+            string idNodeParent = "";
+            int index = 0;
 
-            using (FormSetTopic formSetTopic = new FormSetTopic())
+            if (SelectNode.Name != "0")
             {
-                formSetTopic.SelectNode = e.Node;
-                //formSetTopic.Tree = treeViewCreator;
-                formSetTopic.ShowDialog();
+                index = SelectNode.Parent.Index;
+                idNodeParent = SelectNode.Parent.Name;
+                using (FormSetTopic formSetTopic = new FormSetTopic())
+                {
+                    formSetTopic.SelectNode = e.Node;
+                    //formSetTopic.Tree = treeViewCreator;
+                    formSetTopic.ShowDialog();
+                }
+
+                treeViewCreator.Nodes.Clear();
+                DrawAllTree();
+                root.Expand();
+            }
+            else
+            {
+                index = 0;
+                idNodeParent = "0";
             }
 
-            treeViewCreator.Nodes.Clear();
-            DrawAllTree();
-            root.Expand();
+            
 
             //родительский узел делаем текущим
             SelectedNodeRecursive(treeViewCreator.Nodes[0], idNodeParent);
@@ -258,6 +266,7 @@ namespace IdeographicCreator
             {
                 //сохраняем положение текущего выражения  в списке выражений для предыдущего узла
                 dictCurrentExp[SelectNode.Name] = dataGridViewExpressionsWork.FirstDisplayedScrollingRowIndex;
+
 
                 //предыдущую выбранную тему перерисовываем системным цветом
                 SelectNode.BackColor = Color.White;
@@ -836,9 +845,11 @@ namespace IdeographicCreator
                         formOptionExp.TextFont = dataGridViewExpressionsWork.Font;
                         formOptionExp.TextColor = dataGridViewExpressionsWork.ForeColor;
 
+                        
                         //formSetTopic.SelectNode = e.Node;
                         formOptionExp.ShowDialog();
-
+                        //this.AddOwnedForm(formOptionExp);
+                        //formOptionExp.Show();
                     }
 
                     //заново рисуем таблицу выражений т.к. содержание её могло измениться
@@ -1392,6 +1403,7 @@ namespace IdeographicCreator
             dataGridViewExpressionsWork.Columns[0].Visible = false;
             dataGridViewExpressionsWork.Columns[2].Visible = false;
             dataGridViewExpressionsWork.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewExpressionsWork.Columns[3].Width = dataGridViewExpressionsWork.Width / 6;
             //SelectNode = root;
 
             DataTable dtSearch = SearchExpAll();
@@ -1407,20 +1419,25 @@ namespace IdeographicCreator
 
         private void SetCurrentRow()
         {
-            //показываем то выражение на котором остановились в прошлый раз
-            if (dataGridViewExpressionsWork.RowCount > 0)
+            try
             {
-                dataGridViewExpressionsWork.ClearSelection();
-                if ((dataGridViewExpressionsWork.RowCount - 1) > (dictCurrentExp[SelectNode.Name]))
+                //показываем то выражение на котором остановились в прошлый раз
+                if (dataGridViewExpressionsWork.RowCount > 0)
                 {
-                    dataGridViewExpressionsWork.FirstDisplayedScrollingRowIndex = dictCurrentExp[SelectNode.Name];
-                    dataGridViewExpressionsWork.Rows[dictCurrentExp[SelectNode.Name]].Selected = true;
-                }
-                else
-                {
-                    dataGridViewExpressionsWork.FirstDisplayedScrollingRowIndex = dataGridViewExpressionsWork.RowCount - 1;
+                    dataGridViewExpressionsWork.ClearSelection();
+                    if ((dataGridViewExpressionsWork.RowCount - 1) > (dictCurrentExp[SelectNode.Name]))
+                    {
+                        dataGridViewExpressionsWork.FirstDisplayedScrollingRowIndex = dictCurrentExp[SelectNode.Name];
+                        dataGridViewExpressionsWork.Rows[dictCurrentExp[SelectNode.Name]].Selected = true;
+                    }
+                    else
+                    {
+                        dataGridViewExpressionsWork.FirstDisplayedScrollingRowIndex = dataGridViewExpressionsWork.RowCount - 1;
+                    }
                 }
             }
+            catch(Exception ex)
+            { }
         }
         
 
@@ -1745,6 +1762,70 @@ namespace IdeographicCreator
             }
 
             return treeNode;
+        }
+
+        private void dataGridViewExpressionsWork_SizeChanged(object sender, EventArgs e)
+        {
+            if (dataGridViewExpressionsWork.Columns.Contains("Topics"))
+            {
+                dataGridViewExpressionsWork.Columns[3].Width = dataGridViewExpressionsWork.Width / 6;
+            }
+        }
+
+        private void buttonGetKeyboard_Click(object sender, EventArgs e)
+        {
+            if (!flag)
+            {
+                panelKeyboard.Visible = true;
+                flag = true;
+                keyTimer = true;
+                timerKeyboard.Start();
+            }
+            else
+            {
+                flag = false;
+                keyTimer = true;
+                timerKeyboard.Start();
+            }
+        }
+
+        private void timerKeyboard_Tick(object sender, EventArgs e)
+        {
+            if (keyTimer)
+            {
+                AddS(10);
+            }
+            else
+            {
+                timerKeyboard.Stop();
+            }
+            //label1.Text = panelKeyboard.Width.ToString();
+        }
+
+        public void AddS(int x)
+        {
+            if ((flag) && (keyTimer))
+            {
+                panelKeyboard.Width += x;
+            }
+            else
+            {
+                panelKeyboard.Width -= x;
+            }
+
+            if ((panelKeyboard.Width <= 5) || (panelKeyboard.Width >= 250))
+            {
+                keyTimer = false;
+            }
+            else
+            {
+                keyTimer = true;
+            }
+
+            if(panelKeyboard.Width <= 5)
+            {
+                panelKeyboard.Visible = false;
+            }
         }
     }
 }

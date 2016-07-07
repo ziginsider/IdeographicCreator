@@ -51,7 +51,9 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonTopics = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonExp = new System.Windows.Forms.ToolStripButton();
+            this.buttonGetKeyboard = new System.Windows.Forms.ToolStripButton();
             this.splitContainerMainCreator = new System.Windows.Forms.SplitContainer();
+            this.panelKeyboard = new System.Windows.Forms.Panel();
             this.treeViewCreator = new System.Windows.Forms.TreeView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.dataGridViewExpressionsWork = new System.Windows.Forms.DataGridView();
@@ -72,11 +74,14 @@
             this.fontDialogMain = new System.Windows.Forms.FontDialog();
             this.saveFileDialogMain = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogMain = new System.Windows.Forms.OpenFileDialog();
+            this.timerKeyboard = new System.Windows.Forms.Timer(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMainCreator)).BeginInit();
             this.splitContainerMainCreator.Panel1.SuspendLayout();
             this.splitContainerMainCreator.Panel2.SuspendLayout();
             this.splitContainerMainCreator.SuspendLayout();
+            this.panelKeyboard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -109,10 +114,11 @@
             this.toolStripButtonExpAll,
             this.toolStripSeparator2,
             this.toolStripButtonTopics,
-            this.toolStripButtonExp});
+            this.toolStripButtonExp,
+            this.buttonGetKeyboard});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1376, 37);
+            this.toolStrip1.Size = new System.Drawing.Size(1407, 37);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -302,6 +308,17 @@
             this.toolStripButtonExp.Text = "настройки шрифта выражений";
             this.toolStripButtonExp.Click += new System.EventHandler(this.toolStripButtonExp_Click);
             // 
+            // buttonGetKeyboard
+            // 
+            this.buttonGetKeyboard.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.buttonGetKeyboard.Image = ((System.Drawing.Image)(resources.GetObject("buttonGetKeyboard.Image")));
+            this.buttonGetKeyboard.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonGetKeyboard.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
+            this.buttonGetKeyboard.Name = "buttonGetKeyboard";
+            this.buttonGetKeyboard.Size = new System.Drawing.Size(34, 34);
+            this.buttonGetKeyboard.Text = "Phonetic keyboard";
+            this.buttonGetKeyboard.Click += new System.EventHandler(this.buttonGetKeyboard_Click);
+            // 
             // splitContainerMainCreator
             // 
             this.splitContainerMainCreator.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -315,15 +332,25 @@
             // splitContainerMainCreator.Panel1
             // 
             this.splitContainerMainCreator.Panel1.BackColor = System.Drawing.SystemColors.Window;
+            this.splitContainerMainCreator.Panel1.Controls.Add(this.panelKeyboard);
             this.splitContainerMainCreator.Panel1.Controls.Add(this.treeViewCreator);
             // 
             // splitContainerMainCreator.Panel2
             // 
             this.splitContainerMainCreator.Panel2.BackColor = System.Drawing.Color.AliceBlue;
             this.splitContainerMainCreator.Panel2.Controls.Add(this.splitContainer1);
-            this.splitContainerMainCreator.Size = new System.Drawing.Size(1376, 632);
-            this.splitContainerMainCreator.SplitterDistance = 390;
+            this.splitContainerMainCreator.Size = new System.Drawing.Size(1407, 644);
+            this.splitContainerMainCreator.SplitterDistance = 398;
             this.splitContainerMainCreator.TabIndex = 2;
+            // 
+            // panelKeyboard
+            // 
+            this.panelKeyboard.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.panelKeyboard.Controls.Add(this.button1);
+            this.panelKeyboard.Location = new System.Drawing.Point(3, 3);
+            this.panelKeyboard.Name = "panelKeyboard";
+            this.panelKeyboard.Size = new System.Drawing.Size(10, 634);
+            this.panelKeyboard.TabIndex = 1;
             // 
             // treeViewCreator
             // 
@@ -333,7 +360,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeViewCreator.Location = new System.Drawing.Point(0, -2);
             this.treeViewCreator.Name = "treeViewCreator";
-            this.treeViewCreator.Size = new System.Drawing.Size(386, 630);
+            this.treeViewCreator.Size = new System.Drawing.Size(394, 642);
             this.treeViewCreator.TabIndex = 0;
             this.treeViewCreator.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.treeViewCreator_ItemDrag);
             this.treeViewCreator.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewCreator_NodeMouseClick);
@@ -366,8 +393,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.labelSearch);
             this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.splitContainer1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer1.Size = new System.Drawing.Size(978, 628);
-            this.splitContainer1.SplitterDistance = 436;
+            this.splitContainer1.Size = new System.Drawing.Size(1001, 640);
+            this.splitContainer1.SplitterDistance = 444;
             this.splitContainer1.TabIndex = 0;
             // 
             // dataGridViewExpressionsWork
@@ -385,7 +412,7 @@
             this.dataGridViewExpressionsWork.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewExpressionsWork.RowTemplate.Height = 24;
             this.dataGridViewExpressionsWork.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridViewExpressionsWork.Size = new System.Drawing.Size(976, 434);
+            this.dataGridViewExpressionsWork.Size = new System.Drawing.Size(999, 442);
             this.dataGridViewExpressionsWork.TabIndex = 1;
             this.dataGridViewExpressionsWork.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExpressionsWork_CellClick);
             this.dataGridViewExpressionsWork.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExpressionsWork_CellContentDoubleClick);
@@ -393,6 +420,7 @@
             this.dataGridViewExpressionsWork.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExpressionsWork_CellMouseEnter);
             this.dataGridViewExpressionsWork.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewExpressionsWork_CellMouseMove);
             this.dataGridViewExpressionsWork.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExpressionsWork_CellValueChanged);
+            this.dataGridViewExpressionsWork.SizeChanged += new System.EventHandler(this.dataGridViewExpressionsWork_SizeChanged);
             this.dataGridViewExpressionsWork.DragDrop += new System.Windows.Forms.DragEventHandler(this.dataGridViewExpressionsWork_DragDrop);
             this.dataGridViewExpressionsWork.DragOver += new System.Windows.Forms.DragEventHandler(this.dataGridViewExpressionsWork_DragOver);
             this.dataGridViewExpressionsWork.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridViewExpressionsWork_MouseDown);
@@ -405,19 +433,19 @@
             this.toolStripMenuItemChageExp,
             this.toolStripMenuItemDelete});
             this.contextMenuStripdDataViewExp.Name = "contextMenuStripdDataViewExp";
-            this.contextMenuStripdDataViewExp.Size = new System.Drawing.Size(272, 56);
+            this.contextMenuStripdDataViewExp.Size = new System.Drawing.Size(266, 52);
             // 
             // toolStripMenuItemChageExp
             // 
             this.toolStripMenuItemChageExp.Name = "toolStripMenuItemChageExp";
-            this.toolStripMenuItemChageExp.Size = new System.Drawing.Size(271, 26);
+            this.toolStripMenuItemChageExp.Size = new System.Drawing.Size(265, 24);
             this.toolStripMenuItemChageExp.Text = "Редактировать выражение";
             this.toolStripMenuItemChageExp.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // toolStripMenuItemDelete
             // 
             this.toolStripMenuItemDelete.Name = "toolStripMenuItemDelete";
-            this.toolStripMenuItemDelete.Size = new System.Drawing.Size(271, 26);
+            this.toolStripMenuItemDelete.Size = new System.Drawing.Size(265, 24);
             this.toolStripMenuItemDelete.Text = "Удалить выделенное";
             this.toolStripMenuItemDelete.Click += new System.EventHandler(this.toolStripMenuItemDelete_Click);
             // 
@@ -488,9 +516,9 @@
             this.toolStripStatusLabelFileOpen,
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 691);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 703);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1376, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(1407, 25);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -526,11 +554,26 @@
             // 
             this.openFileDialogMain.FileName = "Ideographic.db3";
             // 
+            // timerKeyboard
+            // 
+            this.timerKeyboard.Interval = 10;
+            this.timerKeyboard.Tick += new System.EventHandler(this.timerKeyboard_Tick);
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(-94, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(101, 37);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // FormMainCreator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1376, 716);
+            this.ClientSize = new System.Drawing.Size(1407, 728);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.splitContainerMainCreator);
@@ -544,6 +587,7 @@
             this.splitContainerMainCreator.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMainCreator)).EndInit();
             this.splitContainerMainCreator.ResumeLayout(false);
+            this.panelKeyboard.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
@@ -600,6 +644,10 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelFileOpen;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelCountExp;
+        private System.Windows.Forms.ToolStripButton buttonGetKeyboard;
+        private System.Windows.Forms.Panel panelKeyboard;
+        private System.Windows.Forms.Timer timerKeyboard;
+        private System.Windows.Forms.Button button1;
     }
 }
 
