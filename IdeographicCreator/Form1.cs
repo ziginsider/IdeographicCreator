@@ -1473,6 +1473,11 @@ namespace IdeographicCreator
                         DrawAllTree();
                         root.Expand();
 
+                        //заполняем tag дерева тем, там будем хранить индекс строки списка выражений, чтобы начинать с поледнего всегда
+                        dictCurrentExp.Clear();
+                        dictCurrentExp.Add(treeViewCreator.Nodes[0].Name, 0);
+                        CallRecursiveSetTag(treeViewCreator, 0);
+
                         //имя открытого файла в статус-строке
                         string a = System.IO.Path.GetFileNameWithoutExtension(Properties.Settings.Default.PathFileOpen);
                         toolStripStatusLabelFileOpen.Text = a;
@@ -1674,9 +1679,70 @@ namespace IdeographicCreator
         {
             if (e.ColumnIndex == 3)
             {
-                MessageBox.Show("Ya-aaaa-choooo! IdTopic = " + dataGridViewExpressionsWork.Rows[e.RowIndex].Cells[2].Value.ToString()
-                    + " TopicName = " + dataGridViewExpressionsWork.Rows[e.RowIndex].Cells[3].Value.ToString(), "Info Clic");
+                //    MessageBox.Show("Ya-aaaa-choooo! IdTopic = " + dataGridViewExpressionsWork.Rows[e.RowIndex].Cells[2].Value.ToString()
+                //        + " TopicName = " + dataGridViewExpressionsWork.Rows[e.RowIndex].Cells[3].Value.ToString(), "Info Clic");
+                //}
+
+
+                //сохраняем положение текущего выражения  в списке выражений для предыдущего узла
+                dictCurrentExp[SelectNode.Name] = dataGridViewExpressionsWork.FirstDisplayedScrollingRowIndex;
+
+
+                //предыдущую выбранную тему перерисовываем системным цветом
+                SelectNode.BackColor = Color.White;
+                SelectNode.ForeColor = treeViewCreator.ForeColor;
+
+                string nodeName = dataGridViewExpressionsWork.Rows[e.RowIndex].Cells[2].Value.ToString();
+                //SelectNode = GetNodeWithNameRecursive(treeViewCreator.Nodes[0], nodeName);
+
+                ////подсвечиваем тему жёлтеньким
+                //SelectNode.BackColor = Color.Yellow;
+                //SelectNode.ForeColor = Color.Black;
+
+                //выбранный узел делаем текущим
+                SelectedNodeRecursive(treeViewCreator.Nodes[0], nodeName);
+                toolStripStatusLabel2.Text = SelectNode.Text;
+                toolStripStatusLabel2.ForeColor = Color.DarkGreen;
+
+
+                if (SelectNode.Name != "0") //если это не корневой узел
+                {
+                    Ostarbeiter ost = new Ostarbeiter();
+                    DataTable dt = ost.GetDateTableWithId(Properties.Settings.Default.PathFile, SelectNode.Name);
+                    dataGridViewExpressionsWork.DataSource = dt;
+
+                    DataTable dtSearch = SearchExp();
+                    dataGridViewExpressionsWork.DataSource = dtSearch;
+
+
+                    labelCountExp.Text = dataGridViewExpressionsWork.RowCount.ToString();
+
+                    SetCurrentRow();
+
+                }
+                else // выводим все выражения
+                {
+                    ShowAllExp();
+                }
             }
+
+        }
+
+        private TreeNode GetNodeWithNameRecursive(TreeNode treeNode, string nodeName)
+        {
+            foreach (TreeNode tn in treeNode.Nodes)
+            {
+                if (tn.Name == nodeName)
+                {
+                    return tn;
+                }
+                else
+                {
+                    GetNodeWithNameRecursive(tn, nodeName);
+                }
+            }
+
+            return treeNode;
         }
     }
 }
