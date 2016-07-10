@@ -25,7 +25,7 @@ namespace IdeographicCreator.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Microsoft Sans Serif, 7.8pt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Microsoft Sans Serif, 12pt")]
         public global::System.Drawing.Font FontExpressions {
             get {
                 return ((global::System.Drawing.Font)(this["FontExpressions"]));
@@ -37,7 +37,7 @@ namespace IdeographicCreator.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Microsoft Sans Serif, 10.2pt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Trebuchet MS, 12pt")]
         public global::System.Drawing.Font FontTree {
             get {
                 return ((global::System.Drawing.Font)(this["FontTree"]));

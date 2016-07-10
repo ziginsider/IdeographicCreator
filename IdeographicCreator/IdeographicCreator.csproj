@@ -95,12 +95,6 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormKeyboard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormKeyboard.Designer.cs">
-      <DependentUpon>FormKeyboard.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormOptionsExpressions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,9 +115,6 @@
     <Compile Include="Topics.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormKeyboard.resx">
-      <DependentUpon>FormKeyboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormOptionsExpressions.resx">
       <DependentUpon>FormOptionsExpressions.cs</DependentUpon>

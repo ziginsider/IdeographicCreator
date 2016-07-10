@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace IdeographicCreator
 {
@@ -24,6 +25,11 @@ namespace IdeographicCreator
         public Color TreeColor { get; set; }
         public Color TextColor { get; set; }
         public bool ManyExpFlag { get; set; }
+
+        private bool keyTimer = true;
+        private bool flagKeyboard = false;
+        private int cursorTextExp = 0;
+
         public FormOptionsExpressions()
         {
             InitializeComponent();
@@ -58,9 +64,10 @@ namespace IdeographicCreator
                 labelSaveExpText.Location = new Point(165, 630);
                 labelSaveExpText.Text = "Выражения не введены";
                 buttonTopicSetOptionExp.Location = new Point(22, 568);
+                button1.Location = new Point(295, 500);
                 labelTopicSetOptionSet.Location = new Point(165, 574);
                 label1.Location = new Point(18, 506);
-                labelTopicOptionExp.Location = new Point(138, 506);
+                labelTopicOptionExp.Location = new Point(115, 506);
                 buttonDeleteExp.Visible = false;
                 //textBoxExpOptionExp.Size = new System.Drawing.Size(502, 438);
                 textBoxExpOptionExp.Height = 438;
@@ -91,6 +98,8 @@ namespace IdeographicCreator
             labelTopicSetOptionSet.Font = TextFont;
             labelTopicOptionExp.Font = TextFont;
             DrawAllTree();
+
+            panelKeyboard.Visible = false;
 
 
         }
@@ -299,6 +308,323 @@ namespace IdeographicCreator
                     textBoxExpOptionExp.Text = "";
                 }*/
             }
+        }
+
+       
+        private void buttonKeyboard4_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard5_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard6_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard7_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard8_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard9_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard10_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard11_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard12_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard13_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard14_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard15_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard16_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard17_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard18_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard19_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard21_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard22_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard23_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard24_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard25_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard26_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard27_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard28_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard29_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard30_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard31_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard32_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard33_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard34_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard35_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard36_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard37_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard38_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard39_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard40_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard41_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard42_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard43_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonBack_Click(object sender, EventArgs e)
+        {
+            flagKeyboard = false;
+            keyTimer = true;
+            timerKeyboard.Start();
+        }
+
+        private void timerKeyboard_Tick(object sender, EventArgs e)
+        {
+            if (keyTimer)
+            {
+                AddS(10);
+            }
+            else
+            {
+                timerKeyboard.Stop();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (!flagKeyboard)
+            {
+                panelKeyboard.Visible = true;
+                flagKeyboard = true;
+                keyTimer = true;
+                button1.Text = "Фонетическая клавиатура <<<";
+                timerKeyboard.Start();
+            }
+            else
+            {
+                flagKeyboard = false;
+                keyTimer = true;
+                button1.Text = "Фонетическая клавиатура >>>";
+                timerKeyboard.Start();
+            }
+        }
+
+        public void AddS(int x)
+        {
+            if ((flagKeyboard) && (keyTimer))
+            {
+                panelKeyboard.Width += x;
+            }
+            else
+            {
+                panelKeyboard.Width -= x;
+            }
+
+            if ((panelKeyboard.Width <= 5) || (panelKeyboard.Width >= 250))
+            {
+                keyTimer = false;
+            }
+            else
+            {
+                keyTimer = true;
+            }
+
+            if (panelKeyboard.Width <= 5)
+            {
+                panelKeyboard.Visible = false;
+            }
+        }
+
+        /// <summary>
+        /// вставляет фонетический символ в строку ввода выражения по положению курсора
+        /// </summary>
+        /// <param name="text"></param>
+        private void insertPhoneticSymbolToTextBoxExp(string text)
+        {
+            cursorTextExp = textBoxExpOptionExp.SelectionStart;
+            textBoxExpOptionExp.Text = textBoxExpOptionExp.Text.Insert(cursorTextExp, text);
+            textBoxExpOptionExp.SelectionStart = cursorTextExp + text.Length;
+        }
+
+        private void buttonKeyboard1_Click_1(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);   
+        }
+
+        private void buttonKeyboard2_Click_1(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+            
+        }
+
+        private void buttonKeyboard3_Click_1(object sender, EventArgs e)
+        {
+           insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard20_Click_1(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard44_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard45_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard46_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard47_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
+        }
+
+        private void buttonKeyboard48_Click(object sender, EventArgs e)
+        {
+            insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
         }
     }
 }
