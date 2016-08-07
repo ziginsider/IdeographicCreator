@@ -802,7 +802,7 @@
             this.buttonKeyboard23.Name = "buttonKeyboard23";
             this.buttonKeyboard23.Size = new System.Drawing.Size(60, 49);
             this.buttonKeyboard23.TabIndex = 31;
-            this.buttonKeyboard23.Text = "ɵ";
+            this.buttonKeyboard23.Text = "θ";
             this.buttonKeyboard23.UseVisualStyleBackColor = false;
             this.buttonKeyboard23.Click += new System.EventHandler(this.buttonKeyboard23_Click);
             // 
@@ -1174,19 +1174,19 @@
             this.toolStripMenuItemChageExp,
             this.toolStripMenuItemDelete});
             this.contextMenuStripdDataViewExp.Name = "contextMenuStripdDataViewExp";
-            this.contextMenuStripdDataViewExp.Size = new System.Drawing.Size(266, 52);
+            this.contextMenuStripdDataViewExp.Size = new System.Drawing.Size(272, 56);
             // 
             // toolStripMenuItemChageExp
             // 
             this.toolStripMenuItemChageExp.Name = "toolStripMenuItemChageExp";
-            this.toolStripMenuItemChageExp.Size = new System.Drawing.Size(265, 24);
+            this.toolStripMenuItemChageExp.Size = new System.Drawing.Size(271, 26);
             this.toolStripMenuItemChageExp.Text = "Редактировать выражение";
             this.toolStripMenuItemChageExp.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // toolStripMenuItemDelete
             // 
             this.toolStripMenuItemDelete.Name = "toolStripMenuItemDelete";
-            this.toolStripMenuItemDelete.Size = new System.Drawing.Size(265, 24);
+            this.toolStripMenuItemDelete.Size = new System.Drawing.Size(271, 26);
             this.toolStripMenuItemDelete.Text = "Удалить выделенное";
             this.toolStripMenuItemDelete.Click += new System.EventHandler(this.toolStripMenuItemDelete_Click);
             // 
