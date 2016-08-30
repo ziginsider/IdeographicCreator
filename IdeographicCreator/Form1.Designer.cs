@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMainCreator));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonOpen = new System.Windows.Forms.ToolStripButton();
@@ -1149,8 +1149,8 @@
             this.dataGridViewExpressionsWork.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewExpressionsWork.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewExpressionsWork.Name = "dataGridViewExpressionsWork";
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewExpressionsWork.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewExpressionsWork.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewExpressionsWork.RowTemplate.Height = 24;
             this.dataGridViewExpressionsWork.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridViewExpressionsWork.Size = new System.Drawing.Size(1007, 442);
@@ -1174,19 +1174,19 @@
             this.toolStripMenuItemChageExp,
             this.toolStripMenuItemDelete});
             this.contextMenuStripdDataViewExp.Name = "contextMenuStripdDataViewExp";
-            this.contextMenuStripdDataViewExp.Size = new System.Drawing.Size(272, 56);
+            this.contextMenuStripdDataViewExp.Size = new System.Drawing.Size(266, 52);
             // 
             // toolStripMenuItemChageExp
             // 
             this.toolStripMenuItemChageExp.Name = "toolStripMenuItemChageExp";
-            this.toolStripMenuItemChageExp.Size = new System.Drawing.Size(271, 26);
+            this.toolStripMenuItemChageExp.Size = new System.Drawing.Size(265, 24);
             this.toolStripMenuItemChageExp.Text = "Редактировать выражение";
             this.toolStripMenuItemChageExp.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // toolStripMenuItemDelete
             // 
             this.toolStripMenuItemDelete.Name = "toolStripMenuItemDelete";
-            this.toolStripMenuItemDelete.Size = new System.Drawing.Size(271, 26);
+            this.toolStripMenuItemDelete.Size = new System.Drawing.Size(265, 24);
             this.toolStripMenuItemDelete.Text = "Удалить выделенное";
             this.toolStripMenuItemDelete.Click += new System.EventHandler(this.toolStripMenuItemDelete_Click);
             // 

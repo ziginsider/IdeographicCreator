@@ -42,6 +42,11 @@
             this.labelExpOptionExp = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panelKeyboard = new System.Windows.Forms.Panel();
+            this.buttonKeyboard48 = new System.Windows.Forms.Button();
+            this.buttonKeyboard47 = new System.Windows.Forms.Button();
+            this.buttonKeyboard46 = new System.Windows.Forms.Button();
+            this.buttonKeyboard45 = new System.Windows.Forms.Button();
+            this.buttonKeyboard44 = new System.Windows.Forms.Button();
             this.buttonKeyboard20 = new System.Windows.Forms.Button();
             this.buttonBack = new System.Windows.Forms.Button();
             this.buttonKeyboard43 = new System.Windows.Forms.Button();
@@ -89,11 +94,6 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.treeViewOptionExp = new System.Windows.Forms.TreeView();
             this.timerKeyboard = new System.Windows.Forms.Timer(this.components);
-            this.buttonKeyboard46 = new System.Windows.Forms.Button();
-            this.buttonKeyboard45 = new System.Windows.Forms.Button();
-            this.buttonKeyboard44 = new System.Windows.Forms.Button();
-            this.buttonKeyboard48 = new System.Windows.Forms.Button();
-            this.buttonKeyboard47 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerOptionExp)).BeginInit();
             this.splitContainerOptionExp.Panel1.SuspendLayout();
             this.splitContainerOptionExp.Panel2.SuspendLayout();
@@ -300,6 +300,71 @@
             this.panelKeyboard.Name = "panelKeyboard";
             this.panelKeyboard.Size = new System.Drawing.Size(10, 655);
             this.panelKeyboard.TabIndex = 2;
+            // 
+            // buttonKeyboard48
+            // 
+            this.buttonKeyboard48.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonKeyboard48.BackColor = System.Drawing.Color.LightCyan;
+            this.buttonKeyboard48.Font = new System.Drawing.Font("Arial Unicode MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonKeyboard48.Location = new System.Drawing.Point(-297, 586);
+            this.buttonKeyboard48.Name = "buttonKeyboard48";
+            this.buttonKeyboard48.Size = new System.Drawing.Size(60, 49);
+            this.buttonKeyboard48.TabIndex = 60;
+            this.buttonKeyboard48.Text = "ˌ";
+            this.buttonKeyboard48.UseVisualStyleBackColor = false;
+            this.buttonKeyboard48.Click += new System.EventHandler(this.buttonKeyboard48_Click);
+            // 
+            // buttonKeyboard47
+            // 
+            this.buttonKeyboard47.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonKeyboard47.BackColor = System.Drawing.Color.LightCyan;
+            this.buttonKeyboard47.Font = new System.Drawing.Font("Arial Unicode MS", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonKeyboard47.Location = new System.Drawing.Point(-56, 526);
+            this.buttonKeyboard47.Name = "buttonKeyboard47";
+            this.buttonKeyboard47.Size = new System.Drawing.Size(60, 49);
+            this.buttonKeyboard47.TabIndex = 59;
+            this.buttonKeyboard47.Text = "\'";
+            this.buttonKeyboard47.UseVisualStyleBackColor = false;
+            this.buttonKeyboard47.Click += new System.EventHandler(this.buttonKeyboard47_Click);
+            // 
+            // buttonKeyboard46
+            // 
+            this.buttonKeyboard46.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonKeyboard46.BackColor = System.Drawing.Color.Salmon;
+            this.buttonKeyboard46.Font = new System.Drawing.Font("Arial Unicode MS", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonKeyboard46.Location = new System.Drawing.Point(-57, 206);
+            this.buttonKeyboard46.Name = "buttonKeyboard46";
+            this.buttonKeyboard46.Size = new System.Drawing.Size(60, 49);
+            this.buttonKeyboard46.TabIndex = 58;
+            this.buttonKeyboard46.Text = "əʊ";
+            this.buttonKeyboard46.UseVisualStyleBackColor = false;
+            this.buttonKeyboard46.Click += new System.EventHandler(this.buttonKeyboard46_Click);
+            // 
+            // buttonKeyboard45
+            // 
+            this.buttonKeyboard45.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonKeyboard45.BackColor = System.Drawing.Color.Salmon;
+            this.buttonKeyboard45.Font = new System.Drawing.Font("Arial Unicode MS", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonKeyboard45.Location = new System.Drawing.Point(-117, 206);
+            this.buttonKeyboard45.Name = "buttonKeyboard45";
+            this.buttonKeyboard45.Size = new System.Drawing.Size(60, 49);
+            this.buttonKeyboard45.TabIndex = 57;
+            this.buttonKeyboard45.Text = "ɔɪ";
+            this.buttonKeyboard45.UseVisualStyleBackColor = false;
+            this.buttonKeyboard45.Click += new System.EventHandler(this.buttonKeyboard45_Click);
+            // 
+            // buttonKeyboard44
+            // 
+            this.buttonKeyboard44.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonKeyboard44.BackColor = System.Drawing.Color.Salmon;
+            this.buttonKeyboard44.Font = new System.Drawing.Font("Arial Unicode MS", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonKeyboard44.Location = new System.Drawing.Point(-177, 206);
+            this.buttonKeyboard44.Name = "buttonKeyboard44";
+            this.buttonKeyboard44.Size = new System.Drawing.Size(60, 49);
+            this.buttonKeyboard44.TabIndex = 56;
+            this.buttonKeyboard44.Text = "aɪ";
+            this.buttonKeyboard44.UseVisualStyleBackColor = false;
+            this.buttonKeyboard44.Click += new System.EventHandler(this.buttonKeyboard44_Click);
             // 
             // buttonKeyboard20
             // 
@@ -595,7 +660,7 @@
             this.buttonKeyboard23.Name = "buttonKeyboard23";
             this.buttonKeyboard23.Size = new System.Drawing.Size(59, 49);
             this.buttonKeyboard23.TabIndex = 31;
-            this.buttonKeyboard23.Text = "ɵ";
+            this.buttonKeyboard23.Text = "θ";
             this.buttonKeyboard23.UseVisualStyleBackColor = false;
             this.buttonKeyboard23.Click += new System.EventHandler(this.buttonKeyboard23_Click);
             // 
@@ -897,71 +962,6 @@
             // 
             this.timerKeyboard.Interval = 10;
             this.timerKeyboard.Tick += new System.EventHandler(this.timerKeyboard_Tick);
-            // 
-            // buttonKeyboard46
-            // 
-            this.buttonKeyboard46.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonKeyboard46.BackColor = System.Drawing.Color.Salmon;
-            this.buttonKeyboard46.Font = new System.Drawing.Font("Arial Unicode MS", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonKeyboard46.Location = new System.Drawing.Point(-57, 206);
-            this.buttonKeyboard46.Name = "buttonKeyboard46";
-            this.buttonKeyboard46.Size = new System.Drawing.Size(60, 49);
-            this.buttonKeyboard46.TabIndex = 58;
-            this.buttonKeyboard46.Text = "əʊ";
-            this.buttonKeyboard46.UseVisualStyleBackColor = false;
-            this.buttonKeyboard46.Click += new System.EventHandler(this.buttonKeyboard46_Click);
-            // 
-            // buttonKeyboard45
-            // 
-            this.buttonKeyboard45.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonKeyboard45.BackColor = System.Drawing.Color.Salmon;
-            this.buttonKeyboard45.Font = new System.Drawing.Font("Arial Unicode MS", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonKeyboard45.Location = new System.Drawing.Point(-117, 206);
-            this.buttonKeyboard45.Name = "buttonKeyboard45";
-            this.buttonKeyboard45.Size = new System.Drawing.Size(60, 49);
-            this.buttonKeyboard45.TabIndex = 57;
-            this.buttonKeyboard45.Text = "ɔɪ";
-            this.buttonKeyboard45.UseVisualStyleBackColor = false;
-            this.buttonKeyboard45.Click += new System.EventHandler(this.buttonKeyboard45_Click);
-            // 
-            // buttonKeyboard44
-            // 
-            this.buttonKeyboard44.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonKeyboard44.BackColor = System.Drawing.Color.Salmon;
-            this.buttonKeyboard44.Font = new System.Drawing.Font("Arial Unicode MS", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonKeyboard44.Location = new System.Drawing.Point(-177, 206);
-            this.buttonKeyboard44.Name = "buttonKeyboard44";
-            this.buttonKeyboard44.Size = new System.Drawing.Size(60, 49);
-            this.buttonKeyboard44.TabIndex = 56;
-            this.buttonKeyboard44.Text = "aɪ";
-            this.buttonKeyboard44.UseVisualStyleBackColor = false;
-            this.buttonKeyboard44.Click += new System.EventHandler(this.buttonKeyboard44_Click);
-            // 
-            // buttonKeyboard48
-            // 
-            this.buttonKeyboard48.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonKeyboard48.BackColor = System.Drawing.Color.LightCyan;
-            this.buttonKeyboard48.Font = new System.Drawing.Font("Arial Unicode MS", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonKeyboard48.Location = new System.Drawing.Point(-297, 586);
-            this.buttonKeyboard48.Name = "buttonKeyboard48";
-            this.buttonKeyboard48.Size = new System.Drawing.Size(60, 49);
-            this.buttonKeyboard48.TabIndex = 60;
-            this.buttonKeyboard48.Text = "ˌ";
-            this.buttonKeyboard48.UseVisualStyleBackColor = false;
-            this.buttonKeyboard48.Click += new System.EventHandler(this.buttonKeyboard48_Click);
-            // 
-            // buttonKeyboard47
-            // 
-            this.buttonKeyboard47.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonKeyboard47.BackColor = System.Drawing.Color.LightCyan;
-            this.buttonKeyboard47.Font = new System.Drawing.Font("Arial Unicode MS", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonKeyboard47.Location = new System.Drawing.Point(-56, 526);
-            this.buttonKeyboard47.Name = "buttonKeyboard47";
-            this.buttonKeyboard47.Size = new System.Drawing.Size(60, 49);
-            this.buttonKeyboard47.TabIndex = 59;
-            this.buttonKeyboard47.Text = "\'";
-            this.buttonKeyboard47.UseVisualStyleBackColor = false;
-            this.buttonKeyboard47.Click += new System.EventHandler(this.buttonKeyboard47_Click);
             // 
             // FormOptionsExpressions
             // 

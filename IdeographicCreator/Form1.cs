@@ -82,7 +82,7 @@ namespace IdeographicCreator
                 toolStripStatusLabelFileOpen.Text = a;
                 toolStripStatusLabelFileOpen.ForeColor = Color.DarkCyan;
 
-                this.Text = "Ideographic Creator v1.5.8  File open: " + Properties.Settings.Default.PathFileOpen;
+                this.Text = "Ideographic Creator v1.7.4  File open: " + Properties.Settings.Default.PathFileOpen;
             }
 
             DrawAllTree();
