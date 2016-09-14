@@ -947,11 +947,17 @@ namespace IdeographicCreator
                         ShowAllExp();
 
                     }
-                    //выделяем и показываем редактируемый узел как и было до редактирования:
-                    dataGridViewExpressionsWork.CurrentCell = dataGridViewExpressionsWork.Rows[index].Cells[1];
-                    dataGridViewExpressionsWork.Rows[index].Cells[1].Selected = true;
-                    dataGridViewExpressionsWork.FirstDisplayedScrollingRowIndex = indexDisplayed;
-
+                    try
+                    {
+                        //выделяем и показываем редактируемый узел как и было до редактирования:
+                        dataGridViewExpressionsWork.CurrentCell = dataGridViewExpressionsWork.Rows[index].Cells[1];
+                        dataGridViewExpressionsWork.Rows[index].Cells[1].Selected = true;
+                        dataGridViewExpressionsWork.FirstDisplayedScrollingRowIndex = indexDisplayed;
+                    }
+                    catch (Exception ex)
+                    {
+                        
+                    }
                 }
             }
         }
@@ -2357,6 +2363,41 @@ namespace IdeographicCreator
             }
         }
 
+        
+
+        private void lstBxLabels_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(TreeNode)))
+                e.Effect = DragDropEffects.Move;
+        }
+
+        private void lstBxLabels_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(TreeNode))) //если перемещаем другую тему
+            {
+                
+                TreeNode droppedNode = (TreeNode)e.Data.GetData(typeof(TreeNode)); //получаем перемещаемый узел
+
+                //проверка: 1) если это не текущий узел 2)если его уже нет в списке ссылок у текущего узла
+                if (droppedNode.Name != SelectNode.Name)
+                {
+                    Ostarbeiter ost = new Ostarbeiter();
+
+                    List<string> listCurrentLabels = ost.GetTopicLabels(Properties.Settings.Default.PathFile, SelectNode.Name);
+
+                    if (!listCurrentLabels.Contains(droppedNode.Name))
+                    {
+                        //List<string> listLabels = new List<string>();
+
+                        listCurrentLabels.Add(droppedNode.Name); //добавляем в список единственный элемент - id перемещаемого узла
+
+                        ost.SetTopicLabels(Properties.Settings.Default.PathFile, SelectNode.Name, listCurrentLabels);
+
+                        ShowCurrentLabels();
+                    }
+                }
+            }
+        }
         #endregion
     }
 }

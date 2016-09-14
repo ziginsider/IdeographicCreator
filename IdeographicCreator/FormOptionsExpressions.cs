@@ -59,15 +59,21 @@ namespace IdeographicCreator
             }
             else
             {
-                buttonChangeExpOptionExp.Location = new Point(22, 623);
-                buttonFormSetOptionExpClose.Location = new Point(340, 623);
-                labelSaveExpText.Location = new Point(165, 630);
+                buttonChangeExpOptionExp.Location = new Point(22, 530);
+                buttonChangeExpOptionExp.Width -= 30;
+                
+                buttonFormSetOptionExpClose.Location = new Point(22, 623);
+                labelSaveExpText.Location = new Point(120, 535);
                 labelSaveExpText.Text = "Выражения не введены";
-                buttonTopicSetOptionExp.Location = new Point(22, 568);
-                button1.Location = new Point(295, 500);
-                labelTopicSetOptionSet.Location = new Point(165, 574);
-                label1.Location = new Point(18, 506);
-                labelTopicOptionExp.Location = new Point(115, 506);
+                //buttonTopicSetOptionExp.Location = new Point(22, 568);
+                buttonTopicSetOptionExp.Visible = false;
+                button1.Location = new Point(22, 576);
+                //labelTopicSetOptionSet.Location = new Point(165, 574);
+                labelTopicSetOptionSet.Location = new Point(110, 498);
+                label1.Location = new Point(18, 501);
+                label1.Text = "Текущая тема:";
+                //labelTopicOptionExp.Location = new Point(115, 506);
+                labelTopicOptionExp.Visible = false;
                 buttonDeleteExp.Visible = false;
                 //textBoxExpOptionExp.Size = new System.Drawing.Size(502, 438);
                 textBoxExpOptionExp.Height = 438;
@@ -78,25 +84,25 @@ namespace IdeographicCreator
                 if (SelectExpParentId != "0")
                 {
                     Ostarbeiter ost = new Ostarbeiter();
-                    labelTopicOptionExp.Text = ost.GetTopicTextWithId(Properties.Settings.Default.PathFile, SelectExpParentId);
-                    labelTopicSetOptionSet.Text = labelTopicOptionExp.Text;
+                    //labelTopicOptionExp.Text = ost.GetTopicTextWithId(Properties.Settings.Default.PathFile, SelectExpParentId);
+                    labelTopicSetOptionSet.Text = ost.GetTopicTextWithId(Properties.Settings.Default.PathFile, SelectExpParentId);
                 }
                 else
                 {
-                    labelTopicOptionExp.Text = "Topics";
-                    labelTopicSetOptionSet.Text = labelTopicOptionExp.Text;
+                    //labelTopicOptionExp.Text = "Topics";
+                    labelTopicSetOptionSet.Text = "Topics";
                 }
-                labelTopicOptionExp.ForeColor = Color.DarkGreen;
+                //labelTopicOptionExp.ForeColor = Color.DarkGreen;
                 labelTopicSetOptionSet.ForeColor = Color.DarkGreen;
                 SelectNodeId = SelectExpParentId;
-                SelectNodeName = labelTopicOptionExp.Text;
+                SelectNodeName = labelTopicSetOptionSet.Text;
 
             }
 
             textBoxExpOptionExp.Font = TextFont;
             textBoxExpOptionExp.ForeColor = TextColor;
             labelTopicSetOptionSet.Font = TextFont;
-            labelTopicOptionExp.Font = TextFont;
+            //labelTopicOptionExp.Font = TextFont;
             DrawAllTree();
 
             panelKeyboard.Visible = false;
@@ -113,7 +119,8 @@ namespace IdeographicCreator
             {
                 root = ost.GetTreeNodeTopicsAll(Properties.Settings.Default.PathFile);
                 treeViewOptionExp.Nodes.Add(root);
-                treeViewOptionExp.ExpandAll();
+                //treeViewOptionExp.ExpandAll();
+                treeViewOptionExp.Nodes[0].Expand();
 
                // SelectNode = root;
             }
@@ -242,16 +249,16 @@ namespace IdeographicCreator
                 }
                 else //если вводим много выражений
                 {
-                    if (SelectNodeId != "0")
-                    {
-                        //Ostarbeiter ost = new Ostarbeiter();
-                        //ost.UpdateSingleExpressionIdParentWithId(Properties.Settings.Default.PathFile, SelectExpId, SelectNodeId);
-                        labelTopicOptionExp.Text = SelectNodeName;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Нельзя назначить корень!", "Назначена корневая тема", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    //if (SelectNodeId != "0")
+                    //{
+                    //    //Ostarbeiter ost = new Ostarbeiter();
+                    //    //ost.UpdateSingleExpressionIdParentWithId(Properties.Settings.Default.PathFile, SelectExpId, SelectNodeId);
+                    //    labelTopicOptionExp.Text = SelectNodeName;
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("Нельзя назначить корень!", "Назначена корневая тема", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //}
                 }
             }
             else

@@ -1231,6 +1231,7 @@
             // 
             // lstBxLabels
             // 
+            this.lstBxLabels.AllowDrop = true;
             this.lstBxLabels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lstBxLabels.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -1241,6 +1242,8 @@
             this.lstBxLabels.Name = "lstBxLabels";
             this.lstBxLabels.Size = new System.Drawing.Size(265, 164);
             this.lstBxLabels.TabIndex = 9;
+            this.lstBxLabels.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstBxLabels_DragDrop);
+            this.lstBxLabels.DragOver += new System.Windows.Forms.DragEventHandler(this.lstBxLabels_DragOver);
             this.lstBxLabels.DoubleClick += new System.EventHandler(this.lstBxLabels_DoubleClick);
             // 
             // labelCountExp
