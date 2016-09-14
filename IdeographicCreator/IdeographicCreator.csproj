@@ -101,6 +101,12 @@
     <Compile Include="FormOptionsExpressions.Designer.cs">
       <DependentUpon>FormOptionsExpressions.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormSetLabels.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSetLabels.Designer.cs">
+      <DependentUpon>FormSetLabels.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSetTopic.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormOptionsExpressions.resx">
       <DependentUpon>FormOptionsExpressions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSetLabels.resx">
+      <DependentUpon>FormSetLabels.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSetTopic.resx">
       <DependentUpon>FormSetTopic.cs</DependentUpon>

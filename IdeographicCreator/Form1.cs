@@ -30,6 +30,7 @@ namespace IdeographicCreator
         private int flagTopic { get; set; }
 
         public List<string> listCheckedTopics;
+        public List<string> listTopicLabels = new List<string>();
 
         //содержит пару ключ-значение. Ключ: идентификатор темы, значение: индекс текущего выражения в теме
         Dictionary<string, int> dictCurrentExp = new Dictionary<string, int>();
@@ -45,7 +46,7 @@ namespace IdeographicCreator
             InitializeComponent();
         }
 
-
+        #region Expand tree
         private void toolStripButtonTreeView_Click(object sender, EventArgs e)
         {
             //DrawAllTree();
@@ -56,7 +57,9 @@ namespace IdeographicCreator
         {
             treeViewCreator.CollapseAll();
         }
+        #endregion
 
+        #region Form load
         private void FormMainCreator_Load(object sender, EventArgs e)
         {
             
@@ -82,7 +85,7 @@ namespace IdeographicCreator
                 toolStripStatusLabelFileOpen.Text = a;
                 toolStripStatusLabelFileOpen.ForeColor = Color.DarkCyan;
 
-                this.Text = "Ideographic Creator v1.7.4  File open: " + Properties.Settings.Default.PathFileOpen;
+                this.Text = "Ideographic Creator " + Application.ProductVersion + " File open: " + Properties.Settings.Default.PathFileOpen;
             }
 
             DrawAllTree();
@@ -90,6 +93,7 @@ namespace IdeographicCreator
 
             SelectNode = root;
             toolStripStatusLabel2.Text = SelectNode.Text;
+            lblResultTopic.Text = SelectNode.Text;
             toolStripStatusLabel2.ForeColor = Color.DarkGreen;
             Ostarbeiter ost = new Ostarbeiter();
             DataTable dt = ost.GetDataTableFromDB(Properties.Settings.Default.PathFile);
@@ -125,7 +129,18 @@ namespace IdeographicCreator
 
             panelKeyboard.Visible = false;
 
-
+            //ссылки не доступны для корневого узла:
+            if (SelectNode.Name == "0")
+            {
+                btnChangeLinks.Enabled = false;
+                lstBxLabels.Enabled = false;
+            }
+            else
+            {
+                btnChangeLinks.Enabled = true;
+                lstBxLabels.Enabled = true;
+                ShowCurrentLabels();
+            }
 
         }
 
@@ -148,6 +163,9 @@ namespace IdeographicCreator
                 TreeSetTag(n, index);
             }
         }
+        #endregion
+
+        #region treeView node works
 
         private void treeViewCreator_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -168,11 +186,20 @@ namespace IdeographicCreator
                 treeViewCreator.Nodes.Clear();
                 DrawAllTree();
                 root.Expand();
+
+                //ссылки доступны для не корневого узла:
+                btnChangeLinks.Enabled = true;
+                lstBxLabels.Enabled = true;
+                ShowCurrentLabels();
             }
             else
             {
                 index = 0;
                 idNodeParent = "0";
+
+                //ссылки доступны для не корневого узла:
+                btnChangeLinks.Enabled = false;
+                lstBxLabels.Enabled = false;
             }
 
             
@@ -183,6 +210,7 @@ namespace IdeographicCreator
             //ShowAllExp();
 
             toolStripStatusLabel2.Text = SelectNode.Text;
+            lblResultTopic.Text = SelectNode.Text;
             toolStripStatusLabel2.ForeColor = Color.DarkGreen;
 
 
@@ -227,8 +255,6 @@ namespace IdeographicCreator
             SelectNode.BackColor = Color.Yellow;
             SelectNode.ForeColor = Color.Black;
 
-    
-
             if (SelectNode.Name != "0") //если это не корневой узел
             {
                 Ostarbeiter ost = new Ostarbeiter();
@@ -243,6 +269,10 @@ namespace IdeographicCreator
 
                 SetCurrentRow();
 
+                btnChangeLinks.Enabled = true;
+                lstBxLabels.Enabled = true;
+                ShowCurrentLabels();
+
             }
             else // выводим все выражения
             {
@@ -251,13 +281,8 @@ namespace IdeographicCreator
             //;
 
             toolStripStatusLabel2.Text = SelectNode.Text;
+            lblResultTopic.Text = SelectNode.Text;
             toolStripStatusLabel2.ForeColor = Color.DarkGreen;
-
-            //MessageBox.Show(e.Node.Tag.ToString());
-            
-            
-            
-            
         }
 
         private void treeViewCreator_KeyPress(object sender, KeyPressEventArgs e)
@@ -294,12 +319,28 @@ namespace IdeographicCreator
                 SetCurrentRow();
 
                 toolStripStatusLabel2.Text = SelectNode.Text;
+                lblResultTopic.Text = SelectNode.Text;
                 toolStripStatusLabel2.ForeColor = Color.DarkGreen;
+
+                //ссылки не доступны для корневого узла:
+                if (SelectNode.Name == "0")
+                {
+                    btnChangeLinks.Enabled = false;
+                    lstBxLabels.Enabled = false;
+                }
+                else
+                {
+                    btnChangeLinks.Enabled = true;
+                    lstBxLabels.Enabled = true;
+                    ShowCurrentLabels();
+                }
             }
 
         }
 
+        #endregion
 
+        #region dataGrid  cell works
 
         /// <summary>
         /// После того как что-то редактировали в ячейке
@@ -370,6 +411,11 @@ namespace IdeographicCreator
 
                     labelCountExp.Text = dataGridViewExpressionsWork.RowCount.ToString();
 
+                    //ссылки доступны для не корневого узла:
+                    btnChangeLinks.Enabled = true;
+                    lstBxLabels.Enabled = true;
+                    ShowCurrentLabels();
+
                 }
                 else
                 {
@@ -388,7 +434,9 @@ namespace IdeographicCreator
             point.X = e.ColumnIndex;
             point.Y = e.RowIndex;
         }
+        #endregion
 
+        #region Context menu Exp
         private void toolStripMenuItemDelete_Click(object sender, EventArgs e)
         {
             DeleteSelectedExp();
@@ -434,6 +482,11 @@ namespace IdeographicCreator
                         dataGridViewExpressionsWork.DataSource = dtSearch;
 
                         labelCountExp.Text = dataGridViewExpressionsWork.RowCount.ToString();
+
+                        //ссылки доступны для не корневого узла:
+                        btnChangeLinks.Enabled = true;
+                        lstBxLabels.Enabled = true;
+                        ShowCurrentLabels();
                     }
                     else
                     {
@@ -452,7 +505,9 @@ namespace IdeographicCreator
                 MessageBox.Show("Микола, курсор должен указывать на существующее выражение!\n System info:\n" + ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        #endregion
 
+        #region Edit Current Topic
         private void toolStripButtonEditCurrentNode_Click(object sender, EventArgs e)
         {
             if (!String.IsNullOrEmpty(SelectNode.Text))
@@ -468,7 +523,9 @@ namespace IdeographicCreator
                 MessageBox.Show("Выберите тему!", "Тема не выбрана", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+        #endregion
 
+        #region Set topic
         private void toolStripButtonSetSubtopic_Click(object sender, EventArgs e)
         {
             if (!String.IsNullOrEmpty(toolStripTextBoxSetSubtopic.Text))
@@ -497,7 +554,9 @@ namespace IdeographicCreator
             SelectNode.Nodes.Add(nodeName, nodeValue);
             SelectNode.Expand();
         }
+        #endregion
 
+        #region Delete topic
         private void toolStripButtonDeleteTopic_Click(object sender, EventArgs e)
         {
             if (!String.IsNullOrEmpty(SelectNode.Text))
@@ -548,6 +607,7 @@ namespace IdeographicCreator
                         //SelectNode = newSelectNode;
                         //выводим название выбранной темы в строку состояния
                         toolStripStatusLabel2.Text = SelectNode.Text;
+                        lblResultTopic.Text = SelectNode.Text;
                         toolStripStatusLabel2.ForeColor = Color.DarkGreen;
 
                         ////подсвечиваем тему жёлтеньким
@@ -564,6 +624,7 @@ namespace IdeographicCreator
 
                         //выводим название выбранной темы в строку состояния
                         toolStripStatusLabel2.Text = SelectNode.Text;
+                        lblResultTopic.Text = SelectNode.Text;
                         toolStripStatusLabel2.ForeColor = Color.DarkGreen;
 
                         //формируем таблицу выражений
@@ -573,6 +634,11 @@ namespace IdeographicCreator
                         dataGridViewExpressionsWork.DataSource = dtSearch;
 
                         labelCountExp.Text = dataGridViewExpressionsWork.RowCount.ToString();
+
+                        //ссылки доступны для не корневого узла:
+                        btnChangeLinks.Enabled = true;
+                        lstBxLabels.Enabled = true;
+                        ShowCurrentLabels();
 
                     }
        
@@ -623,7 +689,9 @@ namespace IdeographicCreator
                 //tn.Remove();
             }
         }
+        #endregion
 
+        #region Set single Exp
         private void toolStripButtonSetExp_Click(object sender, EventArgs e)
         {
             SetExpSingleWithTextBox();
@@ -660,7 +728,9 @@ namespace IdeographicCreator
                 MessageBox.Show("Введите выражение!", "Выражение не введено", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+        #endregion
 
+        #region Search
         private void textBoxSearch_KeyPress(object sender, KeyPressEventArgs e)
         {
             if(e.KeyChar == '\b') //если жмём backspace на textbox'e поиска то заново перерисовываем таблицу выражений согласно выбранной теме
@@ -818,7 +888,9 @@ namespace IdeographicCreator
 
             }
         }
+        #endregion
 
+        #region Edit Exp
         private void toolStripButtonEditExp_Click(object sender, EventArgs e)
         {
 
@@ -864,6 +936,11 @@ namespace IdeographicCreator
                         dataGridViewExpressionsWork.DataSource = dtSearch;
 
                         labelCountExp.Text = dataGridViewExpressionsWork.RowCount.ToString();
+
+                        //ссылки доступны для не корневого узла:
+                        btnChangeLinks.Enabled = true;
+                        lstBxLabels.Enabled = true;
+                        ShowCurrentLabels();
                     }
                     else
                     {
@@ -879,7 +956,7 @@ namespace IdeographicCreator
             }
         }
 
-       
+        #endregion
 
         #region DragAndDrop tree
         private void treeViewCreator_ItemDrag(object sender, ItemDragEventArgs e)
@@ -1162,6 +1239,7 @@ namespace IdeographicCreator
         }
         #endregion
 
+        #region Add Many Exp
         /// <summary>
         /// Добавляем несколько выражений одновременно (выражения вводятся через перенос строки)
         /// </summary>
@@ -1212,7 +1290,9 @@ namespace IdeographicCreator
                 dataGridViewExpressionsWork.FirstDisplayedScrollingRowIndex = indexDisplayed;
             }
         }
+        #endregion
 
+        #region Delete Exp
         private void toolStripButtonDelete_Click(object sender, EventArgs e)
         {
             DeleteSelectedExp();
@@ -1227,7 +1307,7 @@ namespace IdeographicCreator
             {
                 int indexDisplayed = dataGridViewExpressionsWork.FirstDisplayedScrollingRowIndex;
                 DialogResult r = MessageBox.Show("Удалить выделенные выражения?\nКоличество: " +
-            dataGridViewExpressionsWork.SelectedCells.Count, "Удаление", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                dataGridViewExpressionsWork.SelectedCells.Count, "Удаление", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (r == DialogResult.OK)
                 {
                     try
@@ -1252,6 +1332,11 @@ namespace IdeographicCreator
 
                             DataTable dtSearch = SearchExp();
                             dataGridViewExpressionsWork.DataSource = dtSearch;
+
+                            //ссылки доступны для не корневого узла:
+                            btnChangeLinks.Enabled = true;
+                            lstBxLabels.Enabled = true;
+                            ShowCurrentLabels();
                         }
                         else
                         {
@@ -1273,8 +1358,9 @@ namespace IdeographicCreator
                 }
             }
         }
+        #endregion
 
-   
+        #region Fonts
 
         private void toolStripButtonTopics_Click(object sender, EventArgs e)
         {
@@ -1311,34 +1397,10 @@ namespace IdeographicCreator
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
 
-            // Displays a SaveFileDialog so the user can save the Image
-            // assigned to Button2.
-            
-        }
+        #endregion
 
-        private void saveFileDialogMain_FileOk(object sender, CancelEventArgs e)
-        {
-            /*MessageBox.Show("ddddddd");
-            if (saveFileDialogMain.FileName != "")
-            {
-                string name = saveFileDialogMain.FileName;
-                string dbName = Properties.Settings.Default.PathFile;
-                var dbPath = Path.Combine(Application.StartupPath, dbName);
-                //System.IO.FileStream fs = (System.IO.FileStream)saveFileDialogMain.OpenFile();
-                MessageBox.Show(dbPath, "имя источника");
-                MessageBox.Show(name, "имя файла назначения");
-
-
-
-
-                //File.Copy()
-
-            }*/
-        }
-
+        #region Save File DB
         private void toolStripButtonSave_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialogMain = new SaveFileDialog();
@@ -1367,7 +1429,7 @@ namespace IdeographicCreator
                     toolStripStatusLabelFileOpen.Text = a;
                     toolStripStatusLabelFileOpen.ForeColor = Color.DarkCyan;
 
-                    this.Text = "Ideographic Creator v1.5.8  File open: " + Properties.Settings.Default.PathFileOpen;
+                    this.Text = "Ideographic Creator " + Application.ProductVersion + " File open: " + Properties.Settings.Default.PathFileOpen;
 
                 }
                 catch (Exception ex)
@@ -1376,7 +1438,9 @@ namespace IdeographicCreator
                 }
             }
         }
+        #endregion
 
+        #region Show all exp
         private void toolStripButtonExpAll_Click(object sender, EventArgs e)
         {
             //сохраняем положение текущего выражения  в списке выражений для предыдущего узла
@@ -1388,12 +1452,15 @@ namespace IdeographicCreator
 
             SelectNode = root; //выбираем корневой узел
             toolStripStatusLabel2.Text = SelectNode.Text;
+            lblResultTopic.Text = SelectNode.Text;
 
             //подсвечиваем тему жёлтеньким
             SelectNode.BackColor = Color.Yellow;
             SelectNode.ForeColor = Color.Black;
 
             ShowAllExp();
+            
+            
         }
 
         private void ShowAllExp()
@@ -1417,8 +1484,16 @@ namespace IdeographicCreator
 
             SetCurrentRow();
 
-        }
+            //ссылки не доступны для корневого узла:
+            btnChangeLinks.Enabled = false;
+            lstBxLabels.Enabled = false;
 
+            lstBxLabels.Items.Clear();
+
+        }
+        #endregion
+
+        #region set Current row (show last row)
         private void SetCurrentRow()
         {
             try
@@ -1441,8 +1516,9 @@ namespace IdeographicCreator
             catch(Exception ex)
             { }
         }
-        
+        #endregion
 
+        #region Open File DB
         private void toolStripButtonOpen_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialogMain = new OpenFileDialog();
@@ -1504,7 +1580,7 @@ namespace IdeographicCreator
                         toolStripStatusLabelFileOpen.Text = a;
                         toolStripStatusLabelFileOpen.ForeColor = Color.DarkCyan;
 
-                        this.Text = "Ideographic Creator v1.5.8  File open: " + Properties.Settings.Default.PathFileOpen;
+                        this.Text = "Ideographic Creator " + Application.ProductVersion + " File open: " + Properties.Settings.Default.PathFileOpen;
                     }
                     catch (Exception ex)
                     {
@@ -1514,6 +1590,9 @@ namespace IdeographicCreator
             }
         }
 
+        #endregion
+
+        #region Enter Exp
         private void toolStripTextBoxSetExp_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (Convert.ToInt32(e.KeyChar) == 13)
@@ -1523,11 +1602,9 @@ namespace IdeographicCreator
 
         }
 
-        private void checkBoxSortTree_CheckedChanged(object sender, EventArgs e)
-        {
-                DrawAllTree();
-        }
+        #endregion
 
+        #region DragAndDrop DataGrid plus
         private void dataGridViewExpressionsWork_MouseDown(object sender, MouseEventArgs e)
         {
             // Get the index of the item the mouse is below.
@@ -1583,7 +1660,9 @@ namespace IdeographicCreator
             }
             // dataGridViewExpressionsWork.ColumnHeadersVisible = true;
         }
+        #endregion
 
+        #region checkbox treewview
         private void buttonChoiseTopics_Click(object sender, EventArgs e)
         {
             if (flagTopic == 0)
@@ -1621,7 +1700,7 @@ namespace IdeographicCreator
                 flagTopic = 0;
                 
                 
-                buttonChoiseTopics.Text = "Отметить темы для работы";
+                buttonChoiseTopics.Text = "<-- Отметить темы для работы";
                 treeViewCreator.Nodes.Clear();
                 DrawAllTree();
                 //treeViewCreator.ExpandAll();
@@ -1671,9 +1750,10 @@ namespace IdeographicCreator
                 treeViewCreator.Sort();
             }
 
-            //treeViewCreator.TreeViewNodeSorter =
         }
+        #endregion
 
+        #region close main form
         private void FormMainCreator_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!String.IsNullOrEmpty(Properties.Settings.Default.PathFileOpen) || System.IO.File.Exists(Properties.Settings.Default.PathFileOpen))
@@ -1696,6 +1776,9 @@ namespace IdeographicCreator
             }
         }
 
+        #endregion
+
+        #region dataGrid cell Click all exp
         private void dataGridViewExpressionsWork_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 3)
@@ -1723,6 +1806,7 @@ namespace IdeographicCreator
                 //выбранный узел делаем текущим
                 SelectedNodeRecursive(treeViewCreator.Nodes[0], nodeName);
                 toolStripStatusLabel2.Text = SelectNode.Text;
+                lblResultTopic.Text = SelectNode.Text;
                 toolStripStatusLabel2.ForeColor = Color.DarkGreen;
 
 
@@ -1740,6 +1824,11 @@ namespace IdeographicCreator
 
                     SetCurrentRow();
 
+                    //ссылки доступны для не корневого узла:
+                    btnChangeLinks.Enabled = true;
+                    lstBxLabels.Enabled = true;
+                    ShowCurrentLabels();
+
                 }
                 else // выводим все выражения
                 {
@@ -1748,7 +1837,9 @@ namespace IdeographicCreator
             }
 
         }
+        #endregion
 
+        #region other
         private TreeNode GetNodeWithNameRecursive(TreeNode treeNode, string nodeName)
         {
             foreach (TreeNode tn in treeNode.Nodes)
@@ -1773,6 +1864,45 @@ namespace IdeographicCreator
                 dataGridViewExpressionsWork.Columns[3].Width = dataGridViewExpressionsWork.Width / 6;
             }
         }
+
+        private void FormMainCreator_SizeChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxSortTree_CheckedChanged(object sender, EventArgs e)
+        {
+            DrawAllTree();
+        }
+
+        private void saveFileDialogMain_FileOk(object sender, CancelEventArgs e)
+        {
+            /*MessageBox.Show("ddddddd");
+            if (saveFileDialogMain.FileName != "")
+            {
+                string name = saveFileDialogMain.FileName;
+                string dbName = Properties.Settings.Default.PathFile;
+                var dbPath = Path.Combine(Application.StartupPath, dbName);
+                //System.IO.FileStream fs = (System.IO.FileStream)saveFileDialogMain.OpenFile();
+                MessageBox.Show(dbPath, "имя источника");
+                MessageBox.Show(name, "имя файла назначения");
+
+
+
+
+                //File.Copy()
+
+            }*/
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            // Displays a SaveFileDialog so the user can save the Image
+            // assigned to Button2.
+
+        }
+        #endregion
 
         #region Phonetic keyboard
         private void buttonGetKeyboard_Click(object sender, EventArgs e)
@@ -2095,6 +2225,138 @@ namespace IdeographicCreator
         {
             insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
         }
+
+
+        #endregion
+
+        #region set Labels
+        private void btnChangeLinks_Click(object sender, EventArgs e)
+        {
+            using (FormSetLabels formSetLabels = new FormSetLabels())
+            {
+                //formSetLabels.SelectExpText = ExpText;
+                //formSetLabels.SelectExpId = idText;
+                //formSetLabels.SelectExpParentId = idParentText;
+                formSetLabels.selectNodeName = SelectNode.Name;
+                formSetLabels.TreeFont = treeViewCreator.Font;
+                formSetLabels.TreeColor = treeViewCreator.ForeColor;
+                //formSetLabels.TextFont = dataGridViewExpressionsWork.Font;
+                //formSetLabels.TextColor = dataGridViewExpressionsWork.ForeColor;
+
+
+                formSetLabels.ShowDialog();
+            }
+
+            ShowCurrentLabels();
+        }
+
+        private void ShowCurrentLabels()
+        {
+            Ostarbeiter ost = new Ostarbeiter();
+
+            listTopicLabels.Clear();
+            lstBxLabels.Items.Clear();
+
+            listTopicLabels = ost.GetTopicLabels(Properties.Settings.Default.PathFile, SelectNode.Name);
+
+            string currentItem = "";
+            
+
+            foreach (string label in listTopicLabels)
+            {
+                if (!String.IsNullOrWhiteSpace(label))
+                {
+                    currentItem = ost.GetTopicTextWithId(Properties.Settings.Default.PathFile, label);
+                    lstBxLabels.Items.Add(currentItem);
+                    
+                }
+            }
+        }
+
+        
+
+        private void lstBxLabels_DoubleClick(object sender, EventArgs e)
+        {
+            if (lstBxLabels.SelectedItem != null)
+            {
+                //MessageBox.Show(lstBxLabels.SelectedItem.ToString());
+                SetNodeWithText(lstBxLabels.SelectedItem.ToString());
+            }
+        }
+
+        private void SetNodeWithText(string nodeText)
+        {
+            //сохраняем положение текущего выражения  в списке выражений для предыдущего узла
+            dictCurrentExp[SelectNode.Name] = dataGridViewExpressionsWork.FirstDisplayedScrollingRowIndex;
+            
+            //предыдущую выбранную тему перерисовываем системным цветом
+            SelectNode.BackColor = Color.White;
+            SelectNode.ForeColor = treeViewCreator.ForeColor;
+
+            //выбранный узел делаем текущим
+            CallRecursiveWithText(treeViewCreator, nodeText);
+            toolStripStatusLabel2.Text = SelectNode.Text;
+            lblResultTopic.Text = SelectNode.Text;
+            toolStripStatusLabel2.ForeColor = Color.DarkGreen;
+            lblResultTopic.Text = SelectNode.Text;
+
+
+            if (SelectNode.Name != "0") //если это не корневой узел
+            {
+                Ostarbeiter ost = new Ostarbeiter();
+                DataTable dt = ost.GetDateTableWithId(Properties.Settings.Default.PathFile, SelectNode.Name);
+                dataGridViewExpressionsWork.DataSource = dt;
+
+                DataTable dtSearch = SearchExp();
+                dataGridViewExpressionsWork.DataSource = dtSearch;
+
+
+                labelCountExp.Text = dataGridViewExpressionsWork.RowCount.ToString();
+
+                SetCurrentRow();
+
+                //ссылки доступны для не корневого узла:
+                btnChangeLinks.Enabled = true;
+                lstBxLabels.Enabled = true;
+                ShowCurrentLabels();
+
+            }
+            else // выводим все выражения
+            {
+                ShowAllExp();
+            }
+        
+        }
+
+        
+
+        private void NodeSelectRecursiveWithText(TreeNode treeNode, string nodeText)
+        {
+            foreach (TreeNode tn in treeNode.Nodes)
+            {
+                NodeSelectRecursiveWithText(tn, nodeText);
+
+                if (tn.Text == nodeText)
+                {
+                    tn.EnsureVisible();
+                    tn.ExpandAll();
+                    tn.BackColor = Color.Yellow;
+                    tn.ForeColor = Color.Black;
+                    SelectNode = tn;
+                    return;
+                }
+            }
+        }
+
+        private void CallRecursiveWithText(TreeView treeView, string nodeText)
+        {
+            TreeNodeCollection nodes = treeView.Nodes;
+            foreach (TreeNode n in nodes)
+            {
+                NodeSelectRecursiveWithText(n, nodeText);
+            }
+        }
+
         #endregion
     }
 }

@@ -295,6 +295,68 @@ namespace IdeographicCreator
             }
         }
 
+
+        /// <summary>
+        /// Изменяет в теме строку ссылок на другие темы
+        /// </summary>
+        /// <param name="dbName">имя базы данных</param>
+        /// <param name="id">идентификатор темы</param>
+        /// <param name="labels">строка со ссылками через запятую (ссылка - это id темы)</param>
+        protected void UpdateTopicLabels(string dbName, int id, string labels)
+        {
+            Topics topic = new Topics();
+            try
+            {
+                var dbPath = Path.Combine(Application.StartupPath, dbName);
+                using (var db = new SQLiteConnection(dbPath))
+                {
+                    topic = db.Get<Topics>(id);
+                    //topic.IdParent = newParentId;
+                    topic.TopicLabels = labels;
+                    db.Update(topic);
+                }
+            }
+            catch (Exception ex)
+            {
+                //логируем ошибку
+                this.string_errors += ex.ToString() + " ";
+                this.last_error = ex.ToString();
+                this.do_log(">>>>>>>> Update Labels Topic <<<<<<<<<<");
+
+                MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// возвращает строку со ссылками по id темы
+        /// </summary>
+        /// <param name="dbName">имя базы данных</param>
+        /// <param name="id">идентификатор темы</param>
+        protected string GetTopicStrLabels(string dbName, int id)
+        {
+            Topics topic = new Topics();
+            try
+            {
+                var dbPath = Path.Combine(Application.StartupPath, dbName);
+                using (var db = new SQLiteConnection(dbPath))
+                {
+                    topic = db.Get<Topics>(id);
+
+                    return topic.TopicLabels;
+                }
+            }
+            catch (Exception ex)
+            {
+                //логируем ошибку
+                this.string_errors += ex.ToString() + " ";
+                this.last_error = ex.ToString();
+                this.do_log(">>>>>>>> Get Labels Topic <<<<<<<<<<");
+
+                MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return topic.TopicLabels;
+        }
+
         /// <summary>
         /// возвращает название темы по заданному идентификатору темы
         /// </summary>

@@ -328,7 +328,7 @@ Visit(SubNode.Nodes);
         public int SetSingleTopic(string dbName, string topicName, string nodeName)
         {
             int id = 0;
-            Topics topic = new Topics { TopicText = topicName, IdParent = Int32.Parse(nodeName) };
+            Topics topic = new Topics { TopicText = topicName, IdParent = Int32.Parse(nodeName), TopicLabels = "" };
             id = InsertSingleTopic(dbName, topic);
             return id;
         }
@@ -476,6 +476,33 @@ Visit(SubNode.Nodes);
             DeleteSingleExpressionWithExpText(dbName, expText);
         }
 
+        public void SetTopicLabels(string dbName, string idTopic, List<string> listLabels)
+        {
+            int idTopicInt = Int32.Parse(idTopic);
+
+            string strLabels = "";
+
+            strLabels = String.Join(",", listLabels);
+
+            UpdateTopicLabels(dbName, idTopicInt, strLabels);
+
+            //MessageBox.Show(strLabels);            
+        }
+
+        public List<string> GetTopicLabels(string dbName, string idTopic)
+        {
+            List<string> listLabels = new List<string>();
+
+            string strLabels = "";
+
+            int idTopicInt = Int32.Parse(idTopic);
+
+            strLabels = GetTopicStrLabels(dbName, idTopicInt);
+
+            listLabels = strLabels.Split(',').ToList();
+
+            return listLabels;
+        }
 
     }
 }

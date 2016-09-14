@@ -18,6 +18,8 @@ namespace IdeographicCreator
 
         public int IdParent { get; set; }
 
+        public string TopicLabels { get; set; }
+
         public override string ToString()
         {
             return TopicText;
