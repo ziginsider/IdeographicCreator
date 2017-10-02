@@ -26,6 +26,8 @@ namespace IdeographicCreator
         public Color TextColor { get; set; }
         public bool ManyExpFlag { get; set; }
 
+        public List<string> listTopicLabels = new List<string>();
+
         private bool keyTimer = true;
         private bool flagKeyboard = false;
         private int cursorTextExp = 0;
@@ -56,27 +58,36 @@ namespace IdeographicCreator
 
                 labelTopicSetOptionSet.Text = "";
                 labelTopicOptionExp.ForeColor = Color.DarkGreen;
+
+                SelectNodeId = SelectExpParentId;
+                SelectNodeName = labelTopicOptionExp.Text;
             }
             else
             {
                 buttonChangeExpOptionExp.Location = new Point(22, 530);
-                buttonChangeExpOptionExp.Width -= 30;
+                buttonChangeExpOptionExp.Width -= 35;
                 
                 buttonFormSetOptionExpClose.Location = new Point(22, 623);
-                labelSaveExpText.Location = new Point(120, 535);
+                labelSaveExpText.Location = new Point(115, 535);
                 labelSaveExpText.Text = "Выражения не введены";
                 //buttonTopicSetOptionExp.Location = new Point(22, 568);
                 buttonTopicSetOptionExp.Visible = false;
                 button1.Location = new Point(22, 576);
                 //labelTopicSetOptionSet.Location = new Point(165, 574);
-                labelTopicSetOptionSet.Location = new Point(110, 498);
+                labelTopicSetOptionSet.Location = new Point(60, 498);
                 label1.Location = new Point(18, 501);
-                label1.Text = "Текущая тема:";
+                label1.Text = "Tема:";
                 //labelTopicOptionExp.Location = new Point(115, 506);
                 labelTopicOptionExp.Visible = false;
                 buttonDeleteExp.Visible = false;
                 //textBoxExpOptionExp.Size = new System.Drawing.Size(502, 438);
                 textBoxExpOptionExp.Height = 438;
+
+                lstBxLabels.Location = new Point(255, 520);
+                btnLabels.Location = new Point(255, 623);
+                lblLabels.Location = new Point(255, 501);
+                lstBxLabels.Height -= 15;
+
                 labelExpOptionExp.Text = "Введите выражения (каждое новое с новой строки):";
                 this.Height = 700;
                 this.Width = 800;
@@ -106,6 +117,19 @@ namespace IdeographicCreator
             DrawAllTree();
 
             panelKeyboard.Visible = false;
+
+            //ссылки не доступны для корневого узла:
+            if (SelectNodeId == "0")
+            {
+                btnLabels.Enabled = false;
+                lstBxLabels.Enabled = false;
+            }
+            else
+            {
+                btnLabels.Enabled = true;
+                lstBxLabels.Enabled = true;
+                ShowCurrentLabels();
+            }
 
 
         }
@@ -147,6 +171,19 @@ namespace IdeographicCreator
             SelectNodeId = e.Node.Name;
             SelectNodeName = e.Node.Text;
             //MessageBox.Show(SelectNodeId);
+
+            if (SelectNodeId == "0")
+            {
+                btnLabels.Enabled = false;
+                lstBxLabels.Enabled = false;
+            }
+            else
+            {
+                btnLabels.Enabled = true;
+                lstBxLabels.Enabled = true;
+                ShowCurrentLabels();
+            }
+
         }
 
         private void buttonChangeExpOptionExp_Click(object sender, EventArgs e)
@@ -317,7 +354,8 @@ namespace IdeographicCreator
             }
         }
 
-       
+        #region Phonetic Keyboard
+
         private void buttonKeyboard4_Click(object sender, EventArgs e)
         {
             insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
@@ -633,5 +671,149 @@ namespace IdeographicCreator
         {
             insertPhoneticSymbolToTextBoxExp(((System.Windows.Forms.Button)sender).Text);
         }
+#endregion
+
+
+        private void treeViewOptionExp_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            treeViewOptionExp.DoDragDrop(e.Item, DragDropEffects.Move);
+        }
+
+
+
+        private void lstBxLabels_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(TreeNode)))
+                e.Effect = DragDropEffects.Move;
+        }
+
+        private void lstBxLabels_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(TreeNode))) //если перемещаем другую тему
+            {
+
+                TreeNode droppedNode = (TreeNode)e.Data.GetData(typeof(TreeNode)); //получаем перемещаемый узел
+
+                //проверка: 1) если это не текущий узел 2)если его уже нет в списке ссылок у текущего узла
+                if (droppedNode.Name != SelectNodeId)
+                {
+                    Ostarbeiter ost = new Ostarbeiter();
+
+                    List<string> listCurrentLabels = ost.GetTopicLabels(Properties.Settings.Default.PathFile, SelectNodeId);
+
+                    if (!listCurrentLabels.Contains(droppedNode.Name))
+                    {
+                        //List<string> listLabels = new List<string>();
+
+                        listCurrentLabels.Add(droppedNode.Name); //добавляем в список единственный элемент - id перемещаемого узла
+
+                        ost.SetTopicLabels(Properties.Settings.Default.PathFile, SelectNodeId, listCurrentLabels);
+
+                        ShowCurrentLabels();
+                    }
+                }
+            }
+        }
+
+        private void ShowCurrentLabels()
+        {
+            Ostarbeiter ost = new Ostarbeiter();
+
+            listTopicLabels.Clear();
+            lstBxLabels.Items.Clear();
+
+            listTopicLabels = ost.GetTopicLabels(Properties.Settings.Default.PathFile, SelectNodeId);
+
+            string currentItem = "";
+
+
+            foreach (string label in listTopicLabels)
+            {
+                if (!String.IsNullOrWhiteSpace(label))
+                {
+                    currentItem = ost.GetTopicTextWithId(Properties.Settings.Default.PathFile, label);
+                    lstBxLabels.Items.Add(currentItem);
+
+                }
+            }
+        }
+
+        private void btnLabels_Click(object sender, EventArgs e)
+        {
+            using (FormSetLabels formSetLabels = new FormSetLabels())
+            {
+
+                formSetLabels.selectNodeName = SelectNodeId;
+                formSetLabels.TreeFont = treeViewOptionExp.Font;
+                formSetLabels.TreeColor = treeViewOptionExp.ForeColor;
+
+                formSetLabels.ShowDialog();
+            }
+
+            ShowCurrentLabels();
+        }
+
+        private void lstBxLabels_DoubleClick(object sender, EventArgs e)
+        {
+            if (lstBxLabels.SelectedItem.ToString() != null)
+            {
+                CallRecursiveWithText(treeViewOptionExp, lstBxLabels.SelectedItem.ToString());
+
+                labelTopicSetOptionSet.Text = lstBxLabels.SelectedItem.ToString();
+                labelTopicSetOptionSet.ForeColor = Color.DarkGreen;
+
+                //SelectNodeId = 
+                //SelectNodeName = lstBxLabels.SelectedItem.ToString();
+                //MessageBox.Show(SelectNodeId);
+
+                if (SelectNodeId == "0")
+                {
+                    btnLabels.Enabled = false;
+                    lstBxLabels.Enabled = false;
+                }
+                else
+                {
+                    btnLabels.Enabled = true;
+                    lstBxLabels.Enabled = true;
+                    ShowCurrentLabels();
+                }
+            }
+        }
+
+
+        private void NodeSelectRecursiveWithText(TreeNode treeNode, string nodeText)
+        {
+            foreach (TreeNode tn in treeNode.Nodes)
+            {
+                NodeSelectRecursiveWithText(tn, nodeText);
+
+                if (tn.Text == nodeText)
+                {
+                    tn.EnsureVisible();
+                    tn.ExpandAll();
+                    //tn.BackColor = Color.Yellow;
+                    //tn.ForeColor = Color.Black;
+                    //SelectNode = tn;
+                    SelectNodeId = tn.Name;
+                    SelectNodeName = tn.Text;
+                    return;
+                }
+            }
+        }
+
+        private void CallRecursiveWithText(TreeView treeView, string nodeText)
+        {
+            TreeNodeCollection nodes = treeView.Nodes;
+            foreach (TreeNode n in nodes)
+            {
+                NodeSelectRecursiveWithText(n, nodeText);
+            }
+        }
+
+
+
+
+
+
     }
 }

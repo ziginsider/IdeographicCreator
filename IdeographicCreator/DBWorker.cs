@@ -112,7 +112,7 @@ namespace IdeographicCreator
                 using (var db = new SQLiteConnection(dbPath))
                 {
                     db.Insert(topic);
-                    return topic.Id;
+                    return topic._id;
                 }
             }
             catch (Exception ex)
@@ -124,7 +124,7 @@ namespace IdeographicCreator
 
                 MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            return topic.Id;
+            return topic._id;
         }
 
 
@@ -142,7 +142,7 @@ namespace IdeographicCreator
                 using (var db = new SQLiteConnection(dbPath))
                 {
                     db.Insert(exp);
-                    return exp.Id;
+                    return exp._id;
                 }
             }
             catch (Exception ex)
@@ -154,7 +154,7 @@ namespace IdeographicCreator
 
                 MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            return exp.Id;
+            return exp._id;
         }
 
 
@@ -171,7 +171,7 @@ namespace IdeographicCreator
                 var dbPath = Path.Combine(Application.StartupPath, dbName);
                 using (var db = new SQLiteConnection(dbPath))
                 {
-                    db.Delete<Topics>(topic.Id);
+                    db.Delete<Topics>(topic._id);
                 }
             }
             catch (Exception ex)
@@ -249,7 +249,7 @@ namespace IdeographicCreator
                 var dbPath = Path.Combine(Application.StartupPath, dbName);
                 using (var db = new SQLiteConnection(dbPath))
                 {
-                    topic = db.Get<Topics>(id);
+                    topic = db.Get<Topics>(id); ////////////////!!!!!!!!!!!!!!!1
                     topic.TopicText = newText;
                     db.Update(topic);
                 }
@@ -616,7 +616,8 @@ namespace IdeographicCreator
                 using (var db = new SQLiteConnection(dbPath))
                 {
                     //считываем данные из базы
-                    expressions = (from i in db.Table<Expressions>() select i).ToList();
+                    //expressions = (from i in db.Table<Expressions>() select i).ToList();
+                    expressions = db.Query<Expressions>("SELECT * FROM Expressions ORDER BY _id DESC");
                     return expressions;
                 }
             }
@@ -643,7 +644,8 @@ namespace IdeographicCreator
                 {
                     //считываем данные из базы
                     //expressions = (from i in db.Table<Expressions>() select i).ToList();
-                    expressions = db.Query<Expressions>("SELECT * FROM Expressions WHERE IdTopic = " + idTopic.ToString());
+                    //expressions = db.Query<Expressions>("SELECT * FROM Expressions WHERE IdTopic = " + idTopic.ToString());
+                    expressions = db.Query<Expressions>("SELECT * FROM Expressions WHERE IdTopic = " + idTopic.ToString() + " ORDER BY _id DESC");
                     return expressions;
                 }
             }

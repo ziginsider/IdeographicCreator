@@ -11,7 +11,7 @@ namespace IdeographicCreator
     class Expressions
     {
         [PrimaryKey, AutoIncrement, Unique]
-        public int Id { get; set; }
+        public int _id { get; set; }
 
         [MaxLength(3000), NotNull]
         public string ExText { get; set; }

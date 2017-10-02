@@ -11,7 +11,7 @@ namespace IdeographicCreator
     class Topics
     {
         [PrimaryKey, AutoIncrement, Unique]
-        public int Id { get; set; }
+        public int _id { get; set; }
 
         [MaxLength(300), NotNull]
         public string TopicText { get; set; }

@@ -40,13 +40,13 @@ namespace IdeographicCreator
             {
                 //формируем строку
                 DataRow row = dt.NewRow();
-                row["Id"] = exp.Id;
+                row["Id"] = exp._id;
                 row["Text"] = exp.ExText;
                 row["Topic"] = exp.IdTopic;
                 
                 foreach (var top in topics)
                 {
-                    if (exp.IdTopic == top.Id)
+                    if (exp.IdTopic == top._id)
                     {
                         row["Topics"] = top.TopicText;
                         break;
@@ -83,7 +83,7 @@ namespace IdeographicCreator
             {
                 //формируем строку
                 DataRow row = dt.NewRow();
-                row["Id"] = exp.Id;
+                row["Id"] = exp._id;
                 row["Text"] = exp.ExText;
                 row["Topic"] = exp.IdTopic;
 
@@ -98,7 +98,7 @@ namespace IdeographicCreator
         {
             TreeNode root = new TreeNode("Topics");
             root.Name = "0";
-            TreeNode child, child2, child3, child4, child5, child6;
+            TreeNode child, child2, child3, child4, child5, child6, child7, child8, child9, child10, child11, child12;
             List<Topics> topics = new List<Topics>();
             
 
@@ -110,46 +110,110 @@ namespace IdeographicCreator
                 {
                     if (topCursor.IdParent == 0)
                     {
-                        root.Nodes.Add(topCursor.Id.ToString(), topCursor.TopicText);
-                        child = root.Nodes[topCursor.Id.ToString()];
+                        root.Nodes.Add(topCursor._id.ToString(), topCursor.TopicText);
+                        child = root.Nodes[topCursor._id.ToString()];
                         //child.Nodes.Add(RecursionTree(child, topics, topCursor.IdParent)); 
                         foreach (Topics topCursor2 in topics)
                         {
-                            if (topCursor.Id == topCursor2.IdParent)
+                            if (topCursor._id == topCursor2.IdParent)
                             {
-                                child.Nodes.Add(topCursor2.Id.ToString(), topCursor2.TopicText);
-                                child2 = child.Nodes[topCursor2.Id.ToString()];
+                                child.Nodes.Add(topCursor2._id.ToString(), topCursor2.TopicText);
+                                child2 = child.Nodes[topCursor2._id.ToString()];
                                 foreach (Topics topCursor3 in topics)
                                 {
-                                    if (topCursor2.Id == topCursor3.IdParent)
+                                    if (topCursor2._id == topCursor3.IdParent)
                                     {
-                                        child2.Nodes.Add(topCursor3.Id.ToString(), topCursor3.TopicText);
-                                        child3 = child2.Nodes[topCursor3.Id.ToString()];
+                                        child2.Nodes.Add(topCursor3._id.ToString(), topCursor3.TopicText);
+                                        child3 = child2.Nodes[topCursor3._id.ToString()];
                                         foreach (Topics topCursor4 in topics)
                                         {
-                                            if (topCursor3.Id == topCursor4.IdParent)
+                                            if (topCursor3._id == topCursor4.IdParent)
                                             {
-                                                child3.Nodes.Add(topCursor4.Id.ToString(), topCursor4.TopicText);
-                                                child4 = child3.Nodes[topCursor4.Id.ToString()];
+                                                child3.Nodes.Add(topCursor4._id.ToString(), topCursor4.TopicText);
+                                                child4 = child3.Nodes[topCursor4._id.ToString()];
                                                 foreach (Topics topCursor5 in topics)
                                                 {
-                                                    if (topCursor4.Id == topCursor5.IdParent)
+                                                    if (topCursor4._id == topCursor5.IdParent)
                                                     {
-                                                        child4.Nodes.Add(topCursor5.Id.ToString(), topCursor5.TopicText);
-                                                        child5 = child4.Nodes[topCursor5.Id.ToString()];
+                                                        child4.Nodes.Add(topCursor5._id.ToString(), topCursor5.TopicText);
+                                                        child5 = child4.Nodes[topCursor5._id.ToString()];
                                                         foreach (Topics topCursor6 in topics)
                                                         {
-                                                            if (topCursor5.Id == topCursor6.IdParent)
+                                                            if (topCursor5._id == topCursor6.IdParent)
                                                             {
-                                                                child5.Nodes.Add(topCursor6.Id.ToString(), topCursor6.TopicText);
-                                                                child6 = child5.Nodes[topCursor6.Id.ToString()];
+                                                                child5.Nodes.Add(topCursor6._id.ToString(), topCursor6.TopicText);
+                                                                child6 = child5.Nodes[topCursor6._id.ToString()];
                                                                 foreach (Topics topCursor7 in topics)
                                                                 {
-                                                                    if (topCursor6.Id == topCursor7.IdParent)
+                                                                    if (topCursor6._id == topCursor7.IdParent)
                                                                     {
-                                                                        child6.Nodes.Add(topCursor7.Id.ToString(), topCursor7.TopicText);
-                                                                        //child7 = child6.Nodes[topCursor6.Id.ToString()];
+                                                                        child6.Nodes.Add(topCursor7._id.ToString(), topCursor7.TopicText);
+                                                                        child7 = child6.Nodes[topCursor7._id.ToString()];
+                                                                        foreach (Topics topCursor8 in topics)
+                                                                        {
+                                                                            if (topCursor7._id == topCursor8.IdParent)
+                                                                            {
 
+                                                                                child7.Nodes.Add(topCursor8._id.ToString(), topCursor8.TopicText);
+                                                                                child8 = child7.Nodes[topCursor8._id.ToString()];
+                                                                                foreach (Topics topCursor9 in topics)
+                                                                                {
+                                                                                    if (topCursor8._id == topCursor9.IdParent)
+                                                                                    {
+
+                                                                                        child8.Nodes.Add(topCursor9._id.ToString(), topCursor9.TopicText);
+                                                                                        child9 = child8.Nodes[topCursor9._id.ToString()];
+                                                                                        foreach (Topics topCursor10 in topics)
+                                                                                        {
+                                                                                            if (topCursor9._id == topCursor10.IdParent)
+                                                                                            {
+
+                                                                                                child9.Nodes.Add(topCursor10._id.ToString(), topCursor10.TopicText);
+                                                                                                child10 = child9.Nodes[topCursor10._id.ToString()];
+                                                                                                foreach (Topics topCursor11 in topics)
+                                                                                                {
+                                                                                                    if (topCursor10._id == topCursor11.IdParent)
+                                                                                                    {
+
+                                                                                                        child10.Nodes.Add(topCursor11._id.ToString(), topCursor11.TopicText);
+                                                                                                        child11 = child10.Nodes[topCursor11._id.ToString()];
+                                                                                                        foreach (Topics topCursor12 in topics)
+                                                                                                        {
+                                                                                                            if (topCursor11._id == topCursor12.IdParent)
+                                                                                                            {
+
+                                                                                                                child11.Nodes.Add(topCursor12._id.ToString(), topCursor12.TopicText);
+                                                                                                                child12 = child11.Nodes[topCursor12._id.ToString()];
+                                                                                                                foreach (Topics topCursor13 in topics)
+                                                                                                                {
+                                                                                                                    if (topCursor12._id == topCursor13.IdParent)
+                                                                                                                    {
+
+                                                                                                                        child12.Nodes.Add(topCursor13._id.ToString(), topCursor13.TopicText);
+                                                                                                                        //child12 = child11.Nodes[topCursor12._id.ToString()];
+                                                                                                                        //foreach (Topics topCursor13 in topics)
+                                                                                                                        //{
+
+
+                                                                                                                        //}
+                                                                                                                    }
+
+                                                                                                                }
+                                                                                                            }
+
+                                                                                                        }
+                                                                                                    }
+
+                                                                                                }
+                                                                                            }
+
+                                                                                        }
+                                                                                    }
+
+                                                                                }
+                                                                            }
+
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -197,7 +261,7 @@ namespace IdeographicCreator
             TreeNode root = new TreeNode("Topics");
             root.Name = "0";
             int topicIdInt = 0;
-            TreeNode child, child2, child3, child4, child5, child6;
+            TreeNode child, child2, child3, child4, child5, child6, child7, child8, child9, child10, child11, child12;
             List<Topics> topics = new List<Topics>();
 
             foreach (string topicId in idTopics)
@@ -215,46 +279,94 @@ namespace IdeographicCreator
                 {
                     if (topCursor.IdParent == 0)
                     {
-                        root.Nodes.Add(topCursor.Id.ToString(), topCursor.TopicText);
-                        child = root.Nodes[topCursor.Id.ToString()];
+                        root.Nodes.Add(topCursor._id.ToString(), topCursor.TopicText);
+                        child = root.Nodes[topCursor._id.ToString()];
                         //child.Nodes.Add(RecursionTree(child, topics, topCursor.IdParent)); 
                         foreach (Topics topCursor2 in topics)
                         {
-                            if (topCursor.Id == topCursor2.IdParent)
+                            if (topCursor._id == topCursor2.IdParent)
                             {
-                                child.Nodes.Add(topCursor2.Id.ToString(), topCursor2.TopicText);
-                                child2 = child.Nodes[topCursor2.Id.ToString()];
+                                child.Nodes.Add(topCursor2._id.ToString(), topCursor2.TopicText);
+                                child2 = child.Nodes[topCursor2._id.ToString()];
                                 foreach (Topics topCursor3 in topics)
                                 {
-                                    if (topCursor2.Id == topCursor3.IdParent)
+                                    if (topCursor2._id == topCursor3.IdParent)
                                     {
-                                        child2.Nodes.Add(topCursor3.Id.ToString(), topCursor3.TopicText);
-                                        child3 = child2.Nodes[topCursor3.Id.ToString()];
+                                        child2.Nodes.Add(topCursor3._id.ToString(), topCursor3.TopicText);
+                                        child3 = child2.Nodes[topCursor3._id.ToString()];
                                         foreach (Topics topCursor4 in topics)
                                         {
-                                            if (topCursor3.Id == topCursor4.IdParent)
+                                            if (topCursor3._id == topCursor4.IdParent)
                                             {
-                                                child3.Nodes.Add(topCursor4.Id.ToString(), topCursor4.TopicText);
-                                                child4 = child3.Nodes[topCursor4.Id.ToString()];
+                                                child3.Nodes.Add(topCursor4._id.ToString(), topCursor4.TopicText);
+                                                child4 = child3.Nodes[topCursor4._id.ToString()];
                                                 foreach (Topics topCursor5 in topics)
                                                 {
-                                                    if (topCursor4.Id == topCursor5.IdParent)
+                                                    if (topCursor4._id == topCursor5.IdParent)
                                                     {
-                                                        child4.Nodes.Add(topCursor5.Id.ToString(), topCursor5.TopicText);
-                                                        child5 = child4.Nodes[topCursor5.Id.ToString()];
+                                                        child4.Nodes.Add(topCursor5._id.ToString(), topCursor5.TopicText);
+                                                        child5 = child4.Nodes[topCursor5._id.ToString()];
                                                         foreach (Topics topCursor6 in topics)
                                                         {
-                                                            if (topCursor5.Id == topCursor6.IdParent)
+                                                            if (topCursor5._id == topCursor6.IdParent)
                                                             {
-                                                                child5.Nodes.Add(topCursor6.Id.ToString(), topCursor6.TopicText);
-                                                                child6 = child5.Nodes[topCursor6.Id.ToString()];
+                                                                child5.Nodes.Add(topCursor6._id.ToString(), topCursor6.TopicText);
+                                                                child6 = child5.Nodes[topCursor6._id.ToString()];
                                                                 foreach (Topics topCursor7 in topics)
                                                                 {
-                                                                    if (topCursor6.Id == topCursor7.IdParent)
+                                                                    if (topCursor6._id == topCursor7.IdParent)
                                                                     {
-                                                                        child6.Nodes.Add(topCursor7.Id.ToString(), topCursor7.TopicText);
-                                                                        //child7 = child6.Nodes[topCursor6.Id.ToString()];
+                                                                        child6.Nodes.Add(topCursor7._id.ToString(), topCursor7.TopicText);
+                                                                        child7 = child6.Nodes[topCursor7._id.ToString()];
+                                                                        foreach (Topics topCursor8 in topics)
+                                                                        {
+                                                                            if (topCursor7._id == topCursor8.IdParent)
+                                                                            {
+                                                                                child7.Nodes.Add(topCursor8._id.ToString(), topCursor8.TopicText);
+                                                                                child8 = child7.Nodes[topCursor8._id.ToString()];
+                                                                                foreach (Topics topCursor9 in topics)
+                                                                                {
+                                                                                    if (topCursor8._id == topCursor9.IdParent)
+                                                                                    {
+                                                                                        child8.Nodes.Add(topCursor9._id.ToString(), topCursor9.TopicText);
+                                                                                        child9 = child8.Nodes[topCursor9._id.ToString()];
+                                                                                        foreach (Topics topCursor10 in topics)
+                                                                                        {
+                                                                                            if (topCursor9._id == topCursor10.IdParent)
+                                                                                            {
+                                                                                                child9.Nodes.Add(topCursor10._id.ToString(), topCursor10.TopicText);
+                                                                                                child10 = child9.Nodes[topCursor10._id.ToString()];
+                                                                                                foreach (Topics topCursor11 in topics)
+                                                                                                {
+                                                                                                    if (topCursor10._id == topCursor11.IdParent)
+                                                                                                    {
+                                                                                                        child10.Nodes.Add(topCursor11._id.ToString(), topCursor11.TopicText);
+                                                                                                        child11 = child10.Nodes[topCursor11._id.ToString()];
+                                                                                                        foreach (Topics topCursor12 in topics)
+                                                                                                        {
+                                                                                                            if (topCursor11._id == topCursor12.IdParent)
+                                                                                                            {
+                                                                                                                child11.Nodes.Add(topCursor12._id.ToString(), topCursor12.TopicText);
+                                                                                                                child12 = child11.Nodes[topCursor12._id.ToString()];
+                                                                                                                foreach (Topics topCursor13 in topics)
+                                                                                                                {
+                                                                                                                    if (topCursor12._id == topCursor13.IdParent)
+                                                                                                                    {
+                                                                                                                        child12.Nodes.Add(topCursor13._id.ToString(), topCursor13.TopicText);
+                                                                                                                        //child13 = child12.Nodes[topCursor13._id.ToString()];
 
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -461,7 +573,7 @@ Visit(SubNode.Nodes);
         /// <param name="nodeName">имя выбранного узла (содержит идентификатор темы)</param>
         public void DeleteSingleTopic(string dbName, string nodeName)
         {
-            Topics topic = new Topics { Id = Int32.Parse(nodeName) };
+            Topics topic = new Topics { _id = Int32.Parse(nodeName) }; //////////////////////////////!!!!! Id = ?
             base.DeleteSingleTopic(dbName, topic);
         }
 

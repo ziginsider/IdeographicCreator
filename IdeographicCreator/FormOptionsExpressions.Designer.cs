@@ -30,6 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.splitContainerOptionExp = new System.Windows.Forms.SplitContainer();
+            this.btnLabels = new System.Windows.Forms.Button();
+            this.lstBxLabels = new System.Windows.Forms.ListBox();
+            this.lblLabels = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.buttonDeleteExp = new System.Windows.Forms.Button();
             this.buttonFormSetOptionExpClose = new System.Windows.Forms.Button();
@@ -94,9 +97,6 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.treeViewOptionExp = new System.Windows.Forms.TreeView();
             this.timerKeyboard = new System.Windows.Forms.Timer(this.components);
-            this.lblLabels = new System.Windows.Forms.Label();
-            this.lstBxLabels = new System.Windows.Forms.ListBox();
-            this.btnLabels = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerOptionExp)).BeginInit();
             this.splitContainerOptionExp.Panel1.SuspendLayout();
             this.splitContainerOptionExp.Panel2.SuspendLayout();
@@ -137,6 +137,42 @@
             this.splitContainerOptionExp.SplitterDistance = 581;
             this.splitContainerOptionExp.TabIndex = 0;
             // 
+            // btnLabels
+            // 
+            this.btnLabels.Location = new System.Drawing.Point(22, 557);
+            this.btnLabels.Name = "btnLabels";
+            this.btnLabels.Size = new System.Drawing.Size(197, 29);
+            this.btnLabels.TabIndex = 13;
+            this.btnLabels.Text = "Редактировать ссылки";
+            this.btnLabels.UseVisualStyleBackColor = true;
+            this.btnLabels.Click += new System.EventHandler(this.btnLabels_Click);
+            // 
+            // lstBxLabels
+            // 
+            this.lstBxLabels.AllowDrop = true;
+            this.lstBxLabels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstBxLabels.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lstBxLabels.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.lstBxLabels.FormattingEnabled = true;
+            this.lstBxLabels.ItemHeight = 20;
+            this.lstBxLabels.Location = new System.Drawing.Point(22, 391);
+            this.lstBxLabels.Name = "lstBxLabels";
+            this.lstBxLabels.Size = new System.Drawing.Size(230, 144);
+            this.lstBxLabels.TabIndex = 12;
+            this.lstBxLabels.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstBxLabels_DragDrop);
+            this.lstBxLabels.DragOver += new System.Windows.Forms.DragEventHandler(this.lstBxLabels_DragOver);
+            this.lstBxLabels.DoubleClick += new System.EventHandler(this.lstBxLabels_DoubleClick);
+            // 
+            // lblLabels
+            // 
+            this.lblLabels.AutoSize = true;
+            this.lblLabels.Location = new System.Drawing.Point(19, 367);
+            this.lblLabels.Name = "lblLabels";
+            this.lblLabels.Size = new System.Drawing.Size(182, 17);
+            this.lblLabels.TabIndex = 11;
+            this.lblLabels.Text = "Ссылки на смежные темы:";
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(321, 627);
@@ -159,9 +195,9 @@
             // 
             // buttonFormSetOptionExpClose
             // 
-            this.buttonFormSetOptionExpClose.Location = new System.Drawing.Point(22, 623);
+            this.buttonFormSetOptionExpClose.Location = new System.Drawing.Point(22, 627);
             this.buttonFormSetOptionExpClose.Name = "buttonFormSetOptionExpClose";
-            this.buttonFormSetOptionExpClose.Size = new System.Drawing.Size(163, 32);
+            this.buttonFormSetOptionExpClose.Size = new System.Drawing.Size(163, 29);
             this.buttonFormSetOptionExpClose.TabIndex = 8;
             this.buttonFormSetOptionExpClose.Text = "Выйти";
             this.buttonFormSetOptionExpClose.UseVisualStyleBackColor = true;
@@ -962,41 +998,13 @@
             this.treeViewOptionExp.Name = "treeViewOptionExp";
             this.treeViewOptionExp.Size = new System.Drawing.Size(351, 656);
             this.treeViewOptionExp.TabIndex = 0;
+            this.treeViewOptionExp.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.treeViewOptionExp_ItemDrag);
             this.treeViewOptionExp.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeViewOptionExp_BeforeSelect);
             // 
             // timerKeyboard
             // 
             this.timerKeyboard.Interval = 10;
             this.timerKeyboard.Tick += new System.EventHandler(this.timerKeyboard_Tick);
-            // 
-            // lblLabels
-            // 
-            this.lblLabels.AutoSize = true;
-            this.lblLabels.Location = new System.Drawing.Point(19, 367);
-            this.lblLabels.Name = "lblLabels";
-            this.lblLabels.Size = new System.Drawing.Size(182, 17);
-            this.lblLabels.TabIndex = 11;
-            this.lblLabels.Text = "Ссылки на смежные темы:";
-            // 
-            // lstBxLabels
-            // 
-            this.lstBxLabels.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lstBxLabels.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.lstBxLabels.FormattingEnabled = true;
-            this.lstBxLabels.ItemHeight = 20;
-            this.lstBxLabels.Location = new System.Drawing.Point(22, 398);
-            this.lstBxLabels.Name = "lstBxLabels";
-            this.lstBxLabels.Size = new System.Drawing.Size(230, 144);
-            this.lstBxLabels.TabIndex = 12;
-            // 
-            // btnLabels
-            // 
-            this.btnLabels.Location = new System.Drawing.Point(22, 557);
-            this.btnLabels.Name = "btnLabels";
-            this.btnLabels.Size = new System.Drawing.Size(197, 29);
-            this.btnLabels.TabIndex = 13;
-            this.btnLabels.Text = "Редактировать ссылки";
-            this.btnLabels.UseVisualStyleBackColor = true;
             // 
             // FormOptionsExpressions
             // 

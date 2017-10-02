@@ -201,9 +201,6 @@ namespace IdeographicCreator
                 btnChangeLinks.Enabled = false;
                 lstBxLabels.Enabled = false;
             }
-
-            
-
             //родительский узел делаем текущим
             SelectedNodeRecursive(treeViewCreator.Nodes[0], idNodeParent);
 
@@ -212,8 +209,6 @@ namespace IdeographicCreator
             toolStripStatusLabel2.Text = SelectNode.Text;
             lblResultTopic.Text = SelectNode.Text;
             toolStripStatusLabel2.ForeColor = Color.DarkGreen;
-
-
         }
 
         /// <summary>
@@ -229,7 +224,6 @@ namespace IdeographicCreator
                 root = ost.GetTreeNodeTopicsAll(Properties.Settings.Default.PathFile);
                 treeViewCreator.Nodes.Add(root);
             }
-
             if (checkBoxSortTree.Checked == true)
             {
                 treeViewCreator.Sort();                             
@@ -242,7 +236,6 @@ namespace IdeographicCreator
         {
             //сохраняем положение текущего выражения  в списке выражений для предыдущего узла
             dictCurrentExp[SelectNode.Name] = dataGridViewExpressionsWork.FirstDisplayedScrollingRowIndex;
-
 
             //предыдущую выбранную тему перерисовываем системным цветом
             SelectNode.BackColor = Color.White;
@@ -264,7 +257,6 @@ namespace IdeographicCreator
                 DataTable dtSearch = SearchExp();
                 dataGridViewExpressionsWork.DataSource = dtSearch;
 
-
                 labelCountExp.Text = dataGridViewExpressionsWork.RowCount.ToString();
 
                 SetCurrentRow();
@@ -272,7 +264,6 @@ namespace IdeographicCreator
                 btnChangeLinks.Enabled = true;
                 lstBxLabels.Enabled = true;
                 ShowCurrentLabels();
-
             }
             else // выводим все выражения
             {
@@ -287,13 +278,10 @@ namespace IdeographicCreator
 
         private void treeViewCreator_KeyPress(object sender, KeyPressEventArgs e)
         {
-            
-
             if (Convert.ToInt32(e.KeyChar) == 13 || Convert.ToInt32(e.KeyChar) == 32) //если нажали ввод или пробел
             {
                 //сохраняем положение текущего выражения  в списке выражений для предыдущего узла
                 dictCurrentExp[SelectNode.Name] = dataGridViewExpressionsWork.FirstDisplayedScrollingRowIndex;
-
 
                 //предыдущую выбранную тему перерисовываем системным цветом
                 SelectNode.BackColor = Color.White;
@@ -335,7 +323,6 @@ namespace IdeographicCreator
                     ShowCurrentLabels();
                 }
             }
-
         }
 
         #endregion
@@ -735,7 +722,6 @@ namespace IdeographicCreator
         {
             if(e.KeyChar == '\b') //если жмём backspace на textbox'e поиска то заново перерисовываем таблицу выражений согласно выбранной теме
             {
-               
                 Ostarbeiter ost = new Ostarbeiter();
                 if (SelectNode.Name != "0")
                 {
@@ -747,8 +733,6 @@ namespace IdeographicCreator
                     DataTable dtt = ost.GetDataTableFromDB(Properties.Settings.Default.PathFile);
                     dataGridViewExpressionsWork.DataSource = dtt;
                 }
-                
-
             }
         }
 
@@ -781,9 +765,6 @@ namespace IdeographicCreator
 
                 DataRow[] searchedRows = ((DataTable)dataGridViewExpressionsWork.DataSource).Select(selectString);
 
-                
-
-
                 DataColumn columnId = new DataColumn("Id", typeof(int));
                 DataColumn columnText = new DataColumn("Text", typeof(string));
                 DataColumn columnIdTopic = new DataColumn("Topic", typeof(int));
@@ -802,9 +783,7 @@ namespace IdeographicCreator
 
                     //добавляем строку в таблицу
                     dt.Rows.Add(row);
-
                 }
-
                 return dt;
             }
             catch (Exception ex)
@@ -826,9 +805,6 @@ namespace IdeographicCreator
 
                 DataRow[] searchedRows = ((DataTable)dataGridViewExpressionsWork.DataSource).Select(selectString);
 
-
-
-
                 DataColumn columnId = new DataColumn("Id", typeof(int));
                 DataColumn columnText = new DataColumn("Text", typeof(string));
                 DataColumn columnIdTopic = new DataColumn("Topic", typeof(int));
@@ -849,9 +825,7 @@ namespace IdeographicCreator
 
                     //добавляем строку в таблицу
                     dt.Rows.Add(row);
-
                 }
-
                 return dt;
             }
             catch (Exception ex)
@@ -880,8 +854,6 @@ namespace IdeographicCreator
                 dataGridViewExpressionsWork.CurrentCell = dataGridViewExpressionsWork[1, rowIndex];
 
                 //dataGridViewExpressionsWork[1, rowIndex].Style.BackColor = Color.Crimson;
-               
-
             }
             catch (Exception ex)
             {
@@ -1284,6 +1256,10 @@ namespace IdeographicCreator
 
                 DataTable dtSearch = SearchExp();
                 dataGridViewExpressionsWork.DataSource = dtSearch;
+
+                btnChangeLinks.Enabled = true;
+                lstBxLabels.Enabled = true;
+                ShowCurrentLabels();
             }
 
             labelCountExp.Text = dataGridViewExpressionsWork.RowCount.ToString();
@@ -1295,6 +1271,8 @@ namespace IdeographicCreator
                 dataGridViewExpressionsWork.Rows[index].Cells[1].Selected = true;
                 dataGridViewExpressionsWork.FirstDisplayedScrollingRowIndex = indexDisplayed;
             }
+
+            
         }
         #endregion
 
@@ -1464,9 +1442,7 @@ namespace IdeographicCreator
             SelectNode.BackColor = Color.Yellow;
             SelectNode.ForeColor = Color.Black;
 
-            ShowAllExp();
-            
-            
+            ShowAllExp();       
         }
 
         private void ShowAllExp()
@@ -1475,18 +1451,19 @@ namespace IdeographicCreator
             DataTable dt = ost.GetDataTableFromDB(Properties.Settings.Default.PathFile);
             dataGridViewExpressionsWork.DataSource = dt;
             //dataGridViewExpressionsWork.ColumnHeadersVisible = false;
+            
+            //SelectNode = root;
+
             dataGridViewExpressionsWork.Columns[0].Visible = false;
             dataGridViewExpressionsWork.Columns[2].Visible = false;
             dataGridViewExpressionsWork.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewExpressionsWork.Columns[3].Width = dataGridViewExpressionsWork.Width / 6;
-            //SelectNode = root;
 
             DataTable dtSearch = SearchExpAll();
             dataGridViewExpressionsWork.DataSource = dtSearch;
 
             //выводим количество выражений
             labelCountExp.Text = dataGridViewExpressionsWork.RowCount.ToString();
-
 
             SetCurrentRow();
 
@@ -1495,7 +1472,6 @@ namespace IdeographicCreator
             lstBxLabels.Enabled = false;
 
             lstBxLabels.Items.Clear();
-
         }
         #endregion
 
@@ -2248,7 +2224,6 @@ namespace IdeographicCreator
                 formSetLabels.TreeColor = treeViewCreator.ForeColor;
                 //formSetLabels.TextFont = dataGridViewExpressionsWork.Font;
                 //formSetLabels.TextColor = dataGridViewExpressionsWork.ForeColor;
-
 
                 formSetLabels.ShowDialog();
             }
